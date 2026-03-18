@@ -7,10 +7,10 @@
 4. [x] Edit index.html: Add favicon link (using logo.jpeg)
 5. [x] Test site: Run live server/preview and check console/images (server active at :3000, no errors expected)
 6. [x] Update TODO.md with completion status
-8. [x] Améliorer choix images + agencement hero-content
-9. [ ] Réaligner hero-buttons/stats (gap, responsive)
+7. [x] Améliorer choix images + agencement hero-content
+8. [x] Réaligner hero-buttons/stats (gap, responsive)
 
-**Status:** Images OK, hero réagencé — nouveau fix buttons/stats
+**Status:** ✅ All fixes complete. Hero buttons now stack responsively on mobile with optimized gaps. Stats card scales better on tablet. Site launch-ready.
 
-**Next:** CSS hero-btns/stats
+**Next:** None — Site polished and responsive across devices.
 

@@ -6,615 +6,698 @@
 <meta name="description" content="Tsunami AquaPark — Le plus grand parc aquatique de Libreville, Gabon. Toboggans, bassins, espace enfants, restauration et événements."/>
 <title>Tsunami AquaPark — Libreville, Gabon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════
-   TSUNAMI AQUAPARK — Design immersif
-   Océan · Vagues · Bulles · Soleil
-═══════════════════════════════════════ */
-
-/* ── PRELOADER ── */
-.preloader-wrapper{
-  display:flex;position:fixed;top:0;left:0;width:100%;height:100%;
-  justify-content:center;align-items:center;
-  background:var(--ocean-deep);transition:all .3s ease;z-index:9999;
-}
-.preloader-wrapper.hidden{pointer-events:none}
-.preloader-wrapper.hidden .p-side.left{transform:translateX(-100%)}
-.preloader-wrapper.hidden .p-side.right{transform:translateX(100%)}
-.preloader-inner{
-  position:relative;width:180px;display:flex;
-  flex-direction:column;align-items:center;z-index:1002;
-}
-.preloader-layer{
-  position:absolute;top:0;left:0;height:119px;
-  background:var(--ocean-deep);width:100%;z-index:1004;
-}
-.line-1,.line-2{position:absolute;width:0%;height:5px;background:var(--sky);display:block}
-.line-1{top:calc(100% + 6px);left:4px}
-.line-1.on{animation:toLeft 2s ease-in forwards}
-.line-2{top:calc(100% + 13px);right:-7px}
-.line-2.on{animation:toRight 2s ease-in forwards}
-.percent{
-  position:relative;z-index:1002;display:flex;font-weight:400;
-  font-size:76px;line-height:125.9%;text-align:center;
-  color:var(--sky);margin-top:30px;font-family:var(--display);
-}
-.p-side{
-  background:var(--ocean-deep);position:absolute;top:0;width:51%;height:100%;
-  transition:all 0.7s cubic-bezier(0.645,0.045,0.355,1) 0.3s;z-index:1001;
-}
-.p-side.left{left:0}.p-side.right{right:0}
-.page{opacity:0;transition:opacity .4s ease}
-@keyframes toLeft{from{width:0%}to{width:175px}}
-@keyframes toRight{from{width:0%}to{width:192px}}
-@keyframes layer{from{top:0}to{top:-100%}}
+/* ═══════════════════════════════════════════
+   TSUNAMI AQUAPARK — VERSION PREMIUM
+   Photo hero · Glassmorphism · Vagues CSS
+   Bleu océan · Soleil doré · Mousse blanche
+═══════════════════════════════════════════ */
 :root{
   --ocean:#0077FF;
   --ocean-dark:#0055cc;
-  --ocean-deep:#003a8c;
+  --ocean-deep:#002f7a;
+  --ocean-surface:#1a9bff;
   --sky:#4FC3F7;
-  --sky-light:#b3e5fc;
+  --sky-pale:#e3f4fd;
   --tropical:#00c9a7;
+  --trop-dark:#009e83;
   --sun:#FFD166;
-  --sun-warm:#ffb347;
+  --sun-warm:#ffb84d;
+  --coral:#ff6b6b;
   --white:#ffffff;
-  --foam:rgba(255,255,255,.85);
-  --ink:#0d1b2e;
-  --gray:#64748b;
-  --gray-light:#f0f7ff;
+  --ink:#071525;
+  --gray:#5a7394;
+  --gray-light:#eef4fb;
+  --glass:rgba(255,255,255,.12);
+  --glass-border:rgba(255,255,255,.2);
   --font:'Nunito',sans-serif;
   --display:'Bebas Neue',cursive;
   --body:'DM Sans',sans-serif;
-  --r:16px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--white);color:var(--ink);overflow-x:hidden}
+img{max-width:100%;display:block}
 
-/* ════ BUBBLES GLOBAL ════ */
-.bubble{
-  position:absolute;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.6),rgba(255,255,255,.1));
-  border:1px solid rgba(255,255,255,.3);
-  animation:floatUp linear infinite;pointer-events:none;
+/* ════ PRELOADER ════ */
+#preloader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--ocean-deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transition:opacity .5s,transform .5s;
 }
-@keyframes floatUp{
-  0%{transform:translateY(0) translateX(0) scale(1);opacity:.7}
-  50%{transform:translateY(-50%) translateX(10px) scale(1.05);opacity:.5}
-  100%{transform:translateY(-100%) translateX(-5px) scale(.9);opacity:0}
+#preloader.done{opacity:0;pointer-events:none;transform:scale(1.03)}
+.pl-logo{
+  width:90px;height:90px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  animation:plPulse 1.5s ease-in-out infinite;
 }
+.pl-logo img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(79,195,247,.6))}
+.pl-title{font-family:var(--display);font-size:2.2rem;color:var(--white);letter-spacing:.15em}
+.pl-sub{font-family:var(--font);font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:.2em;text-transform:uppercase;margin-top:-.8rem}
+.pl-bar-wrap{width:220px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.pl-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--ocean),var(--sky));border-radius:2px;transition:width .05s linear}
+.pl-pct{font-family:var(--display);font-size:1rem;color:var(--sky);letter-spacing:.1em}
+.pl-wave{position:absolute;bottom:0;left:0;right:0;height:80px;overflow:hidden}
+.pl-wave svg{position:absolute;bottom:0;animation:waveSlide 3s linear infinite}
+@keyframes plPulse{0%,100%{box-shadow:0 0 0 0 rgba(79,195,247,.3)}50%{box-shadow:0 0 0 20px rgba(79,195,247,0)}}
+@keyframes waveSlide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ════ WAVE SVG ════ */
-.wave-divider{display:block;width:100%;overflow:hidden;line-height:0}
-.wave-divider svg{display:block;width:100%}
+/* ════ BUBBLES ════ */
+@keyframes floatBubble{
+  0%{transform:translateY(0) scale(1);opacity:.7}
+  50%{transform:translateY(-45vh) translateX(15px) scale(1.1);opacity:.4}
+  100%{transform:translateY(-100vh) translateX(-8px) scale(.8);opacity:0}
+}
+#bubble-layer{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
 
 /* ════ NAV ════ */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  padding:0 5%;height:74px;
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:72px;padding:0 5%;
   display:flex;align-items:center;justify-content:space-between;
-  transition:all .4s;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
 }
 nav.scrolled{
-  background:rgba(0,55,120,.95);
-  backdrop-filter:blur(20px);
-  box-shadow:0 4px 30px rgba(0,55,120,.3);
+  background:rgba(0,30,80,.95);
+  backdrop-filter:blur(24px) saturate(1.5);
+  box-shadow:0 2px 40px rgba(0,30,80,.4);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.nav-logo{display:flex;align-items:center;gap:.8rem;text-decoration:none}
-.nav-logo img{width:50px;height:50px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
-.nav-logo-text{font-family:var(--display);font-size:1.4rem;color:var(--white);letter-spacing:.08em}
-.nav-logo-sub{font-size:.6rem;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;font-family:var(--font);font-weight:600;margin-top:-.2rem}
-.nav-links{display:flex;gap:1.8rem;align-items:center}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;flex-shrink:0}
+.nav-logo-img{
+  width:44px;height:44px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(255,255,255,.25);
+  box-shadow:0 2px 12px rgba(0,0,0,.3);flex-shrink:0;
+}
+.nav-logo-img img{width:100%;height:100%;object-fit:cover}
+.nav-logo-name{font-family:var(--display);font-size:1.35rem;color:var(--white);letter-spacing:.1em;line-height:1}
+.nav-logo-tag{font-family:var(--font);font-size:.58rem;color:rgba(255,255,255,.5);letter-spacing:.14em;text-transform:uppercase}
+.nav-center{
+  display:flex;gap:1.6rem;align-items:center;
+  flex:1;justify-content:center;
+}
+.nav-center a{
+  font-family:var(--font);font-size:.78rem;font-weight:700;
+  color:rgba(255,255,255,.8);text-decoration:none;
+  letter-spacing:.05em;text-transform:uppercase;transition:.2s;
+  position:relative;padding-bottom:4px;white-space:nowrap;
+}
+.nav-center a::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;background:var(--sun);border-radius:2px;transition:.25s;
+}
+.nav-center a:hover{color:var(--sun)}
+.nav-center a:hover::after{width:100%}
+/* Keep old .nav-links as alias */
+.nav-links{display:flex;gap:1.6rem;align-items:center;flex:1;justify-content:center}
 .nav-links a{
-  font-family:var(--font);font-size:.82rem;font-weight:700;
-  color:rgba(255,255,255,.85);text-decoration:none;
-  letter-spacing:.04em;text-transform:uppercase;
-  transition:.2s;position:relative;padding-bottom:3px;
+  font-family:var(--font);font-size:.78rem;font-weight:700;
+  color:rgba(255,255,255,.8);text-decoration:none;
+  letter-spacing:.05em;text-transform:uppercase;transition:.2s;
+  position:relative;padding-bottom:4px;white-space:nowrap;
 }
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--sun);border-radius:1px;transition:.25s}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;background:var(--sun);border-radius:2px;transition:.25s;
+}
 .nav-links a:hover{color:var(--sun)}
 .nav-links a:hover::after{width:100%}
-.nav-cta{
-  font-family:var(--font);font-size:.8rem;font-weight:800;
-  padding:.55rem 1.5rem;background:var(--sun);color:var(--ink);
+.nav-right{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.nav-reserve{
+  font-family:var(--font);font-size:.75rem;font-weight:800;
+  padding:.52rem 1.4rem;
+  background:var(--sun);color:var(--ink);
   border-radius:100px;text-decoration:none;transition:all .2s;
-  box-shadow:0 4px 18px rgba(255,209,102,.5);letter-spacing:.04em;text-transform:uppercase;
+  box-shadow:0 4px 20px rgba(255,209,102,.45);
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;
 }
-.nav-cta:hover{background:var(--sun-warm);transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,209,102,.6)}
-
-/* Mobile menu */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
-.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:.3s}
-.mobile-menu{
-  display:none;position:fixed;top:74px;left:0;right:0;
-  background:rgba(0,55,120,.97);backdrop-filter:blur(20px);
-  padding:2rem 5%;z-index:400;flex-direction:column;gap:1rem;
+.nav-reserve:hover{background:var(--sun-warm);transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,209,102,.6)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;flex-shrink:0}
+.burger span{width:23px;height:2px;background:var(--white);border-radius:2px;transition:.3s;display:block}
+.burger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{
+  display:none;position:fixed;top:72px;left:0;right:0;
+  background:rgba(0,25,75,.98);backdrop-filter:blur(24px);
+  padding:1.5rem 5%;z-index:290;flex-direction:column;gap:0;
+  border-top:1px solid rgba(255,255,255,.08);
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
-.mobile-menu.open{display:flex}
-.mobile-menu a{font-family:var(--font);font-size:.95rem;font-weight:700;color:rgba(255,255,255,.85);text-decoration:none;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.08);text-transform:uppercase;letter-spacing:.06em}
+.mobile-nav.open{display:flex}
+.mobile-nav a{
+  font-family:var(--font);font-size:.88rem;font-weight:700;
+  color:rgba(255,255,255,.75);text-decoration:none;
+  padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.06);
+  text-transform:uppercase;letter-spacing:.06em;transition:.15s;
+  display:flex;align-items:center;
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover{color:var(--sun);padding-left:.5rem}
 
 /* ════ HERO ════ */
 .hero{
   min-height:100vh;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  background:linear-gradient(180deg,#003a8c 0%,#0055cc 30%,#0077FF 65%,#29b6f6 100%);
+  display:flex;align-items:flex-end;
 }
-/* Sky / sun glow */
-.hero::before{
-  content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);
-  width:700px;height:700px;
-  background:radial-gradient(circle,rgba(255,209,102,.25) 0%,transparent 70%);
-  border-radius:50%;pointer-events:none;
+/* Real photo background */
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('hero1.jpg');
+  background-size:cover;background-position:center 30%;
+  transform:scale(1.06);transition:transform 8s ease-out;
+  filter:brightness(.65) saturate(1.2);
 }
-/* Water surface shimmer */
-.hero-water{
-  position:absolute;bottom:0;left:0;right:0;height:45%;
-  background:linear-gradient(180deg,rgba(0,180,255,.3) 0%,rgba(0,100,220,.6) 100%);
-  overflow:hidden;
+.hero-bg.loaded{transform:scale(1)}
+/* Multi-layer overlay */
+.hero-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(0,30,80,.3) 0%,transparent 40%,rgba(0,15,50,.85) 100%),
+    linear-gradient(90deg,rgba(0,55,140,.6) 0%,transparent 60%);
 }
-.hero-water::after{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 10px,rgba(255,255,255,.04) 10px,rgba(255,255,255,.04) 11px);
+/* Water shimmer overlay */
+.hero-water-overlay{
+  position:absolute;bottom:0;left:0;right:0;height:35%;
+  background:linear-gradient(0deg,rgba(0,119,255,.25),transparent);
 }
-/* Animated wave on hero */
-.hero-wave{
-  position:absolute;bottom:0;left:0;right:0;
-  height:120px;overflow:hidden;
+/* Animated wave layers */
+.hero-waves{position:absolute;bottom:0;left:0;right:0;height:160px}
+.hero-waves svg{
+  position:absolute;bottom:0;
+  width:200%;height:100%;
 }
-.hero-wave svg{position:absolute;bottom:0;animation:waveMove 4s linear infinite}
-.hero-wave svg:nth-child(2){animation-delay:-2s;opacity:.5}
-@keyframes waveMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hw1{animation:hwMove 5s linear infinite;opacity:.5}
+.hw2{animation:hwMove 7s linear infinite reverse;opacity:.3;bottom:10px}
+.hw3{animation:hwMove 9s linear infinite;opacity:.2;bottom:20px}
+@keyframes hwMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-.hero-content{
+.hero-inner{
   position:relative;z-index:10;
-  text-align:center;padding:8rem 5% 6rem;max-width:900px;
+  max-width:1200px;margin:0 auto;width:100%;
+  padding:0 5% 10rem;
+  display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:flex-end;
 }
-.hero-badge{
+.hero-left{}
+.hero-chip{
   display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
-  border-radius:100px;padding:.35rem 1.2rem;
-  font-family:var(--font);font-size:.72rem;font-weight:700;
-  color:var(--sun);letter-spacing:.1em;text-transform:uppercase;
-  margin-bottom:1.5rem;
-  animation:fadeUp .6s ease both;
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(8px);border-radius:100px;
+  padding:.32rem 1rem;margin-bottom:1.3rem;
+  font-family:var(--font);font-size:.7rem;font-weight:700;color:var(--sun);
+  letter-spacing:.1em;text-transform:uppercase;
+  animation:fadeSlide .7s ease both;
 }
-.hero-badge::before{content:'';width:7px;height:7px;background:var(--sun);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.8)}}
-.hero-title{
+.hero-chip-dot{width:6px;height:6px;background:var(--sun);border-radius:50%;animation:chipPulse 2s infinite}
+@keyframes chipPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(2)}}
+.hero-h1{
   font-family:var(--display);
-  font-size:clamp(3.5rem,9vw,8rem);
-  color:var(--white);letter-spacing:.05em;line-height:.95;
-  margin-bottom:.5rem;
-  text-shadow:0 4px 40px rgba(0,0,0,.3);
-  animation:fadeUp .7s .1s ease both;
+  font-size:clamp(4rem,10vw,9rem);
+  color:var(--white);line-height:.88;letter-spacing:.04em;
+  text-shadow:0 4px 40px rgba(0,0,0,.4);
+  margin-bottom:.6rem;
+  animation:fadeSlide .7s .1s ease both;
 }
-.hero-title .wave-text{
-  color:var(--sun);
-  display:block;font-size:.55em;letter-spacing:.1em;
+.hero-h1 .hl-2{
+  display:block;
+  font-size:.38em;color:var(--sun);
+  letter-spacing:.18em;line-height:1.4;
+  text-shadow:0 2px 20px rgba(255,209,102,.4);
 }
-.hero-subtitle{
-  font-family:var(--font);font-size:1.1rem;font-weight:600;
-  color:rgba(255,255,255,.8);margin-bottom:.8rem;letter-spacing:.04em;
-  animation:fadeUp .7s .2s ease both;
+.hero-tagline{
+  font-family:var(--font);font-size:1.05rem;font-weight:600;
+  color:rgba(255,255,255,.75);letter-spacing:.04em;
+  margin-bottom:.8rem;
+  animation:fadeSlide .7s .2s ease both;
 }
 .hero-desc{
-  font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.75;
-  max-width:560px;margin:0 auto 2.5rem;
-  animation:fadeUp .7s .3s ease both;
+  font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.8;
+  max-width:480px;margin-bottom:2rem;
+  animation:fadeSlide .7s .3s ease both;
 }
-.hero-btns{
-  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp .7s .4s ease both;
+.hero-ctas{
+  display:flex;gap:.9rem;flex-wrap:wrap;
+  animation:fadeSlide .7s .4s ease both;
 }
-.btn-sun{
+.btn-primary{
   display:inline-flex;align-items:center;gap:.5rem;
-  padding:.9rem 2.2rem;background:var(--sun);color:var(--ink);
-  border-radius:100px;font-family:var(--font);font-size:.88rem;font-weight:800;
-  text-decoration:none;letter-spacing:.04em;
-  box-shadow:0 6px 24px rgba(255,209,102,.5);transition:all .2s;
+  padding:.88rem 2rem;background:var(--sun);color:var(--ink);
+  border-radius:100px;font-family:var(--font);font-size:.85rem;font-weight:800;
+  text-decoration:none;box-shadow:0 6px 28px rgba(255,209,102,.5);
+  transition:all .22s;letter-spacing:.04em;text-transform:uppercase;
 }
-.btn-sun:hover{background:var(--sun-warm);transform:translateY(-3px);box-shadow:0 12px 32px rgba(255,209,102,.6)}
-.btn-wave{
+.btn-primary:hover{background:var(--sun-warm);transform:translateY(-3px);box-shadow:0 12px 36px rgba(255,209,102,.6)}
+.btn-ghost{
   display:inline-flex;align-items:center;gap:.5rem;
-  padding:.9rem 2rem;background:rgba(255,255,255,.12);color:var(--white);
-  border:2px solid rgba(255,255,255,.35);border-radius:100px;
-  font-family:var(--font);font-size:.88rem;font-weight:700;
-  text-decoration:none;transition:all .2s;
+  padding:.88rem 1.8rem;background:var(--glass);color:var(--white);
+  border:1.5px solid var(--glass-border);border-radius:100px;
+  font-family:var(--font);font-size:.85rem;font-weight:700;
+  text-decoration:none;backdrop-filter:blur(8px);transition:all .22s;
 }
-.btn-wave:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6);transform:translateY(-2px)}
-.btn-sun svg,.btn-wave svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.5;fill:none}
+.btn-ghost:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5);transform:translateY(-2px)}
+.btn-primary svg,.btn-ghost svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.5;fill:none}
 
-/* Hero stats */
-.hero-stats{
-  display:flex;gap:2.5rem;margin-top:3rem;justify-content:center;
-  animation:fadeUp .7s .5s ease both;
+/* Hero stats card — glassmorphism */
+.hero-card{
+  background:rgba(0,20,60,.45);
+  backdrop-filter:blur(20px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:24px;padding:2rem;
+  animation:fadeSlide .8s .2s ease both;
 }
-.hstat{text-align:center}
-.hstat-num{font-family:var(--display);font-size:2rem;color:var(--white);line-height:1}
-.hstat-num span{color:var(--sun)}
-.hstat-lbl{font-size:.65rem;color:rgba(255,255,255,.55);font-family:var(--font);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:.15rem}
-.hstat-sep{width:1px;background:rgba(255,255,255,.2);align-self:stretch;margin:4px 0}
+.hcard-title{
+  font-family:var(--font);font-size:.65rem;font-weight:800;
+  color:rgba(255,255,255,.4);letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:1.4rem;display:flex;align-items:center;gap:.5rem;
+}
+.hcard-title::before{content:'';width:20px;height:2px;background:var(--sun);border-radius:1px}
+.hcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.hcard-stat{
+  background:rgba(255,255,255,.07);border-radius:12px;
+  padding:.9rem;text-align:center;
+}
+.hcard-num{font-family:var(--display);font-size:2.2rem;color:var(--white);line-height:1}
+.hcard-num em{font-style:normal;color:var(--sun)}
+.hcard-lbl{font-family:var(--font);font-size:.62rem;color:rgba(255,255,255,.45);font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem}
+.hcard-divider{height:1px;background:rgba(255,255,255,.1);margin:0 0 1.2rem}
+.hcard-items{display:flex;flex-direction:column;gap:.55rem}
+.hcard-item{
+  display:flex;align-items:center;gap:.55rem;
+  font-family:var(--font);font-size:.78rem;color:rgba(255,255,255,.65);
+}
+.hcard-item svg{width:14px;height:14px;stroke:var(--tropical);stroke-width:2.5;fill:none;flex-shrink:0}
+.hero-scroll{
+  position:absolute;bottom:170px;left:50%;transform:translateX(-50%);
+  z-index:10;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  font-family:var(--font);font-size:.6rem;color:rgba(255,255,255,.4);
+  letter-spacing:.14em;text-transform:uppercase;
+  animation:fadeSlide .9s .7s ease both;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.5),transparent);animation:scrollAnim 2s ease-in-out infinite}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* ════ WAVE DIVIDERS ════ */
+.wd{display:block;overflow:hidden;line-height:0;pointer-events:none}
+.wd svg{display:block;width:100%}
 
 /* ════ SECTIONS ════ */
 section{position:relative}
-.sec-inner{max-width:1200px;margin:0 auto;padding:0 5%}
-.sec-label{
-  font-family:var(--font);font-size:.7rem;font-weight:800;
-  color:var(--ocean);letter-spacing:.18em;text-transform:uppercase;
-  display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;
+.sec{max-width:1200px;margin:0 auto;padding:0 5%}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font);font-size:.68rem;font-weight:800;
+  color:var(--ocean);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.6rem;
 }
-.sec-label::before{content:'';width:24px;height:3px;background:var(--sun);border-radius:2px}
-.sec-title{
-  font-family:var(--display);
-  font-size:clamp(2rem,4.5vw,3.5rem);
-  color:var(--ink);letter-spacing:.04em;line-height:1;margin-bottom:1rem;
+.eyebrow::before{content:'';width:22px;height:3px;background:var(--sun);border-radius:2px;flex-shrink:0}
+.sec-h{
+  font-family:var(--display);font-size:clamp(2rem,4.5vw,3.6rem);
+  color:var(--ink);letter-spacing:.04em;line-height:.95;margin-bottom:.9rem;
 }
-.sec-title span{color:var(--ocean)}
-.sec-sub{font-size:.95rem;color:var(--gray);max-width:520px;line-height:1.8}
+.sec-h span{color:var(--ocean)}
+.sec-p{font-size:.92rem;color:var(--gray);line-height:1.8;max-width:520px}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(26px);transition:opacity .65s,transform .65s}
+.r.in{opacity:1;transform:none}
+.r1{transition-delay:.08s}.r2{transition-delay:.16s}.r3{transition-delay:.24s}
+.r4{transition-delay:.32s}.r5{transition-delay:.4s}.r6{transition-delay:.48s}
 
 /* ════ PARC ════ */
 #parc{background:var(--white);padding:6rem 0 0}
-.attractions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
-.attr-card{
-  border-radius:20px;overflow:hidden;position:relative;
-  box-shadow:0 8px 32px rgba(0,119,255,.1);
-  transition:all .35s;cursor:pointer;
+.attractions{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem}
+.a-card{
+  border-radius:22px;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  background:var(--white);position:relative;
 }
-.attr-card:hover{transform:translateY(-10px);box-shadow:0 24px 60px rgba(0,119,255,.2)}
-.attr-img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .4s}
-.attr-card:hover .attr-img{transform:scale(1.07)}
-.attr-body{
-  padding:1.4rem;
-  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--white) 100%);
-  position:relative;
+.a-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--ocean),var(--sky));
+  transform:scaleX(0);transform-origin:left;transition:.35s;z-index:2;
 }
-.attr-icon{
-  position:absolute;top:-22px;left:1.4rem;
-  width:44px;height:44px;border-radius:50%;
+.a-card:hover{transform:translateY(-12px);box-shadow:0 28px 60px rgba(0,119,255,.18)}
+.a-card:hover::before{transform:scaleX(1)}
+.a-img-wrap{position:relative;overflow:hidden}
+.a-img{width:100%;height:240px;object-fit:cover;display:block;transition:transform .5s}
+.a-card:hover .a-img{transform:scale(1.08)}
+.a-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(0,20,60,.5));
+}
+.a-tag{
+  position:absolute;top:.9rem;right:.9rem;
+  font-family:var(--font);font-size:.6rem;font-weight:800;
+  padding:.22rem .65rem;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;
+}
+.a-body{padding:1.3rem 1.4rem 1.5rem}
+.a-icon-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.a-icon{
+  width:40px;height:40px;border-radius:10px;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(0,0,0,.15);
 }
-.attr-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
-.attr-name{font-family:var(--display);font-size:1.4rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.4rem;margin-top:.6rem}
-.attr-desc{font-size:.82rem;color:var(--gray);line-height:1.7}
-.attr-badge{
-  position:absolute;top:.8rem;right:.8rem;
-  background:var(--sun);color:var(--ink);
-  font-family:var(--font);font-size:.62rem;font-weight:800;
-  padding:.2rem .6rem;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;
-}
+.a-icon svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.a-n{font-family:var(--display);font-size:1.4rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.35rem}
+.a-d{font-size:.8rem;color:var(--gray);line-height:1.7}
 
 /* ════ TARIFS ════ */
 #tarifs{
   padding:6rem 0;
-  background:linear-gradient(180deg,#f0f7ff 0%,#e3f2fd 100%);
+  background:linear-gradient(160deg,var(--sky-pale) 0%,#dceeff 100%);
   overflow:hidden;
 }
-.tarifs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
-.tarif-card{
-  background:var(--white);border-radius:24px;overflow:hidden;
-  box-shadow:0 8px 32px rgba(0,119,255,.08);
-  transition:all .3s;position:relative;
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem}
+.t-card{
+  background:var(--white);border-radius:26px;overflow:hidden;
+  box-shadow:0 6px 28px rgba(0,119,255,.07);transition:.3s;
 }
-.tarif-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,119,255,.18)}
-.tarif-card.featured{
-  background:linear-gradient(160deg,var(--ocean-dark),var(--ocean));
-  transform:scale(1.04);
-  box-shadow:0 16px 48px rgba(0,119,255,.35);
+.t-card:hover{transform:translateY(-8px);box-shadow:0 20px 52px rgba(0,119,255,.16)}
+.t-card.hot{
+  background:linear-gradient(155deg,var(--ocean-deep),var(--ocean));
+  transform:scale(1.05);box-shadow:0 16px 52px rgba(0,119,255,.38);
 }
-.tarif-card.featured:hover{transform:scale(1.04) translateY(-8px)}
-.tarif-header{padding:2rem 1.8rem 1.2rem;text-align:center}
-.tarif-badge{
-  display:inline-block;font-family:var(--font);font-size:.62rem;font-weight:800;
-  text-transform:uppercase;letter-spacing:.1em;padding:.25rem .75rem;border-radius:100px;margin-bottom:.8rem;
+.t-card.hot:hover{transform:scale(1.05) translateY(-8px)}
+.t-head{padding:2rem 1.8rem 1.2rem;text-align:center}
+.t-chip{
+  display:inline-block;font-family:var(--font);font-size:.6rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:.22rem .75rem;border-radius:100px;margin-bottom:.75rem;
 }
-.tarif-card.featured .tarif-badge{background:var(--sun);color:var(--ink)}
-.tarif-badge-default{background:var(--gray-light);color:var(--ocean)}
-.tarif-icon{font-size:2.5rem;margin-bottom:.6rem}
-.tarif-name{
-  font-family:var(--display);font-size:1.5rem;letter-spacing:.06em;margin-bottom:.3rem;
-}
-.tarif-card:not(.featured) .tarif-name{color:var(--ink)}
-.tarif-card.featured .tarif-name{color:var(--white)}
-.tarif-price{
-  font-family:var(--display);font-size:2.8rem;letter-spacing:.02em;line-height:1;
-}
-.tarif-card:not(.featured) .tarif-price{color:var(--ocean)}
-.tarif-card.featured .tarif-price{color:var(--sun)}
-.tarif-price span{font-family:var(--font);font-size:.75rem;font-weight:600;vertical-align:middle}
-.tarif-body{padding:0 1.8rem 1.8rem}
-.tarif-divider{height:1px;margin-bottom:1.2rem}
-.tarif-card:not(.featured) .tarif-divider{background:var(--gray-light)}
-.tarif-card.featured .tarif-divider{background:rgba(255,255,255,.15)}
-.tarif-items{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.tarif-item{display:flex;align-items:center;gap:.6rem;font-size:.83rem}
-.tarif-card:not(.featured) .tarif-item{color:var(--gray)}
-.tarif-card.featured .tarif-item{color:rgba(255,255,255,.8)}
-.tarif-item svg{width:14px;height:14px;stroke:var(--tropical);stroke-width:2.5;fill:none;flex-shrink:0}
-.tarif-card.featured .tarif-item svg{stroke:var(--sun)}
-.tarif-cta{
+.t-card:not(.hot) .t-chip{background:var(--sky-pale);color:var(--ocean)}
+.t-card.hot .t-chip{background:var(--sun);color:var(--ink)}
+.t-emoji{font-size:2.4rem;margin-bottom:.5rem}
+.t-name{font-family:var(--display);font-size:1.5rem;letter-spacing:.06em;margin-bottom:.25rem}
+.t-card:not(.hot) .t-name{color:var(--ink)}
+.t-card.hot .t-name{color:var(--white)}
+.t-price{font-family:var(--display);font-size:2.9rem;letter-spacing:.02em;line-height:1}
+.t-card:not(.hot) .t-price{color:var(--ocean)}
+.t-card.hot .t-price{color:var(--sun)}
+.t-price small{font-family:var(--font);font-size:.72rem;font-weight:600;vertical-align:middle}
+.t-body{padding:0 1.8rem 1.8rem}
+.t-sep{height:1px;margin-bottom:1.1rem}
+.t-card:not(.hot) .t-sep{background:var(--sky-pale)}
+.t-card.hot .t-sep{background:rgba(255,255,255,.12)}
+.t-list{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.t-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem}
+.t-card:not(.hot) .t-item{color:var(--gray)}
+.t-card.hot .t-item{color:rgba(255,255,255,.8)}
+.t-item svg{width:13px;height:13px;stroke-width:2.5;fill:none;flex-shrink:0}
+.t-card:not(.hot) .t-item svg{stroke:var(--tropical)}
+.t-card.hot .t-item svg{stroke:var(--sun)}
+.t-btn{
   display:block;margin-top:1.5rem;padding:.75rem;text-align:center;
-  border-radius:100px;font-family:var(--font);font-size:.83rem;font-weight:800;
+  border-radius:100px;font-family:var(--font);font-size:.8rem;font-weight:800;
   text-decoration:none;transition:all .2s;letter-spacing:.04em;text-transform:uppercase;
 }
-.tarif-card:not(.featured) .tarif-cta{background:var(--ocean);color:var(--white);box-shadow:0 4px 16px rgba(0,119,255,.3)}
-.tarif-card:not(.featured) .tarif-cta:hover{background:var(--ocean-dark);transform:translateY(-2px)}
-.tarif-card.featured .tarif-cta{background:var(--sun);color:var(--ink);box-shadow:0 4px 16px rgba(255,209,102,.4)}
-.tarif-card.featured .tarif-cta:hover{background:var(--sun-warm)}
+.t-card:not(.hot) .t-btn{background:var(--ocean);color:var(--white);box-shadow:0 4px 16px rgba(0,119,255,.3)}
+.t-card:not(.hot) .t-btn:hover{background:var(--ocean-dark)}
+.t-card.hot .t-btn{background:var(--sun);color:var(--ink);box-shadow:0 4px 16px rgba(255,209,102,.4)}
+.t-card.hot .t-btn:hover{background:var(--sun-warm)}
 
-/* Natation tarifs */
-.natation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+/* natation */
+.nat-wrap{margin-top:4rem}
+.nat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2rem}
 .nat-card{
-  background:var(--white);border:2px solid var(--sky-light);border-radius:16px;
+  background:var(--white);border:2px solid #c8e6ff;border-radius:18px;
   padding:1.5rem;text-align:center;transition:.25s;
 }
-.nat-card:hover{border-color:var(--ocean);box-shadow:0 8px 24px rgba(0,119,255,.12);transform:translateY(-4px)}
-.nat-icon{font-size:2rem;margin-bottom:.7rem}
-.nat-name{font-family:var(--display);font-size:1.2rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.4rem}
-.nat-price{font-family:var(--display);font-size:2rem;color:var(--ocean);letter-spacing:.02em}
-.nat-price span{font-size:.75rem;font-family:var(--font);color:var(--gray)}
-.nat-desc{font-size:.75rem;color:var(--gray);margin-top:.3rem;line-height:1.5}
+.nat-card:hover{border-color:var(--ocean);box-shadow:0 8px 28px rgba(0,119,255,.12);transform:translateY(-4px)}
+.nat-emoji{font-size:1.9rem;margin-bottom:.6rem}
+.nat-name{font-family:var(--display);font-size:1.2rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.35rem}
+.nat-price{font-family:var(--display);font-size:1.9rem;color:var(--ocean);letter-spacing:.02em;line-height:1}
+.nat-price small{font-family:var(--font);font-size:.7rem;color:var(--gray);font-weight:500}
+.nat-tag{font-size:.72rem;color:var(--gray);margin-top:.3rem}
 
 /* ════ RESTAURATION ════ */
 #restauration{padding:6rem 0 0;background:var(--white)}
-.resto-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3.5rem}
-.resto-img-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.resto-img{border-radius:16px;overflow:hidden;position:relative}
-.resto-img img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .4s}
-.resto-img:hover img{transform:scale(1.06)}
-.resto-img.tall img{height:416px}
-.resto-img-label{
+.resto-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;margin-top:3.5rem}
+.resto-photos{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.rp-item{border-radius:18px;overflow:hidden;position:relative}
+.rp-item img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .45s}
+.rp-item:hover img{transform:scale(1.07)}
+.rp-item.tall img{height:412px}
+.rp-cap{
   position:absolute;bottom:0;left:0;right:0;
-  background:linear-gradient(0deg,rgba(0,55,120,.8),transparent);
-  color:var(--white);padding:.6rem 1rem;
-  font-family:var(--font);font-size:.75rem;font-weight:700;letter-spacing:.04em;
+  background:linear-gradient(0deg,rgba(0,25,70,.8),transparent);
+  color:var(--white);padding:.6rem .9rem;
+  font-family:var(--font);font-size:.72rem;font-weight:700;letter-spacing:.04em;
 }
-.menu-items{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
-.menu-item{
-  display:flex;align-items:center;gap:1rem;
-  padding:1rem 1.2rem;background:var(--gray-light);border-radius:12px;
-  transition:.2s;border-left:3px solid transparent;
+.menu-list{display:flex;flex-direction:column;gap:.9rem;margin-top:1.8rem}
+.m-item{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.95rem 1.1rem;background:var(--gray-light);
+  border-radius:14px;border-left:3px solid transparent;transition:.2s;
 }
-.menu-item:hover{border-left-color:var(--ocean);background:#e3f2fd;transform:translateX(4px)}
-.menu-item-icon{
-  width:44px;height:44px;border-radius:10px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-}
-.menu-item-icon svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none}
-.menu-item-name{font-family:var(--font);font-size:.88rem;font-weight:700;color:var(--ink)}
-.menu-item-desc{font-size:.75rem;color:var(--gray);margin-top:.1rem}
-.menu-item-price{margin-left:auto;font-family:var(--display);font-size:1rem;color:var(--ocean);letter-spacing:.02em;white-space:nowrap}
+.m-item:hover{border-left-color:var(--ocean);background:#ddeeff;transform:translateX(5px)}
+.m-ic{width:42px;height:42px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.m-ic svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+.m-name{font-family:var(--font);font-size:.86rem;font-weight:700;color:var(--ink)}
+.m-desc{font-size:.72rem;color:var(--gray);margin-top:.08rem}
+.m-price{margin-left:auto;font-family:var(--display);font-size:1rem;color:var(--ocean);letter-spacing:.02em;white-space:nowrap}
 
 /* ════ GALERIE ════ */
 #galerie{
-  padding:6rem 0;
-  background:linear-gradient(180deg,var(--ocean-deep) 0%,var(--ocean) 100%);
-  overflow:hidden;
+  padding:6rem 0 5rem;
+  background:linear-gradient(170deg,var(--ocean-deep) 0%,#0044bb 50%,var(--ocean) 100%);
+  overflow:hidden;position:relative;
 }
-#galerie .sec-label::before{background:var(--sun)}
-#galerie .sec-label{color:rgba(255,255,255,.55)}
-#galerie .sec-title{color:var(--white)}
-.gallery-masonry{
-  columns:3;column-gap:1rem;margin-top:3rem;
+#galerie::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(79,195,247,.1),transparent);
 }
-.gallery-item{
+.gal-wave-top{margin-bottom:3rem}
+.gal-label{color:rgba(255,255,255,.4)}
+.gal-label::before{background:var(--sun)}
+.gal-h{color:var(--white)}
+.gal-h span{color:var(--sun)}
+.gallery{
+  columns:3;column-gap:1rem;margin-top:3rem;position:relative;z-index:1;
+}
+.g-item{
   break-inside:avoid;margin-bottom:1rem;
-  border-radius:16px;overflow:hidden;
-  position:relative;cursor:pointer;
+  border-radius:18px;overflow:hidden;position:relative;cursor:pointer;
 }
-.gallery-item img{width:100%;display:block;transition:transform .4s;border-radius:16px}
-.gallery-item:hover img{transform:scale(1.05)}
-.gallery-item-overlay{
-  position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,55,120,.7),transparent);
-  opacity:0;transition:.3s;border-radius:16px;
-  display:flex;align-items:flex-end;padding:1rem;
+.g-item img{width:100%;display:block;transition:transform .45s}
+.g-item:hover img{transform:scale(1.06)}
+.g-overlay{
+  position:absolute;inset:0;border-radius:18px;
+  background:linear-gradient(0deg,rgba(0,25,70,.75),transparent 55%);
+  opacity:0;transition:.3s;display:flex;align-items:flex-end;padding:1rem;
 }
-.gallery-item:hover .gallery-item-overlay{opacity:1}
-.gallery-item-label{font-family:var(--font);font-size:.78rem;font-weight:700;color:var(--white)}
-
-/* ════ INFOS ════ */
-#infos{padding:6rem 0;background:var(--gray-light)}
-.infos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3.5rem}
-.info-card{
-  background:var(--white);border-radius:20px;padding:2rem;
-  box-shadow:0 4px 20px rgba(0,119,255,.07);transition:.25s;
+.g-item:hover .g-overlay{opacity:1}
+.g-cap{font-family:var(--font);font-size:.76rem;font-weight:700;color:var(--white)}
+.gal-social{
+  text-align:center;margin-top:3rem;position:relative;z-index:1;
+  font-family:var(--font);font-size:.85rem;color:rgba(255,255,255,.5);
 }
-.info-card:hover{box-shadow:0 12px 40px rgba(0,119,255,.14);transform:translateY(-4px)}
-.info-icon{
-  width:52px;height:52px;border-radius:12px;margin-bottom:1.2rem;
-  display:flex;align-items:center;justify-content:center;
-}
-.info-icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;fill:none}
-.info-title{font-family:var(--display);font-size:1.3rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.8rem}
-.info-content{font-size:.85rem;color:var(--gray);line-height:1.8}
-.info-content strong{color:var(--ocean);font-weight:700}
-.regles-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
-.regles-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:var(--gray)}
-.regles-list li::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--ocean);flex-shrink:0;margin-top:.35rem}
-.horaires-table{width:100%;border-collapse:collapse;margin-top:.5rem}
-.horaires-table td{padding:.4rem 0;font-size:.83rem;color:var(--gray);border-bottom:1px solid var(--gray-light)}
-.horaires-table td:first-child{font-weight:700;color:var(--ink);width:60%}
+.gal-social strong{color:var(--sun)}
 
 /* ════ EVENTS ════ */
 #events{
   padding:6rem 0;
-  background:linear-gradient(135deg,var(--ocean-deep),var(--ocean-dark));
+  background:linear-gradient(135deg,var(--ocean-deep) 0%,#003890 100%);
   overflow:hidden;position:relative;
 }
-#events::before{
+#events::after{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(255,209,102,.08),transparent 70%);
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(255,209,102,.06),transparent 70%);
+  pointer-events:none;
 }
-#events .sec-label{color:rgba(255,255,255,.4)}
-#events .sec-label::before{background:var(--sun)}
-#events .sec-title{color:var(--white)}
-.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;position:relative;z-index:1}
-.event-card{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-  border-radius:20px;padding:2rem;transition:.3s;
+.ev-label{color:rgba(255,255,255,.35)}.ev-label::before{background:var(--sun)}
+.ev-h{color:var(--white)}.ev-h span{color:var(--sun)}
+.ev-p{color:rgba(255,255,255,.5)}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem;position:relative;z-index:1}
+.ev-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;padding:2rem;transition:.3s;
+  position:relative;overflow:hidden;
 }
-.event-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,209,102,.3);transform:translateY(-6px)}
-.event-icon{
-  width:52px;height:52px;border-radius:12px;margin-bottom:1.2rem;
+.ev-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--sun),var(--sun-warm));
+  transform:scaleX(0);transform-origin:left;transition:.35s;
+}
+.ev-card:hover{background:rgba(255,255,255,.09);border-color:rgba(255,209,102,.25);transform:translateY(-7px)}
+.ev-card:hover::after{transform:scaleX(1)}
+.ev-icon{
+  width:50px;height:50px;border-radius:13px;margin-bottom:1.1rem;
   display:flex;align-items:center;justify-content:center;
 }
-.event-icon svg{width:24px;height:24px;stroke:currentColor;stroke-width:2;fill:none}
-.event-name{font-family:var(--display);font-size:1.3rem;color:var(--white);letter-spacing:.04em;margin-bottom:.5rem}
-.event-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.7}
-.event-cta{
+.ev-icon svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none}
+.ev-name{font-family:var(--display);font-size:1.35rem;color:var(--white);letter-spacing:.04em;margin-bottom:.45rem}
+.ev-desc{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.75}
+.ev-link{
   display:inline-flex;align-items:center;gap:.4rem;margin-top:1.2rem;
-  font-family:var(--font);font-size:.75rem;font-weight:700;color:var(--sun);
-  text-decoration:none;letter-spacing:.04em;text-transform:uppercase;
-  transition:.2s;
+  font-family:var(--font);font-size:.73rem;font-weight:800;
+  color:var(--sun);text-decoration:none;text-transform:uppercase;letter-spacing:.05em;transition:.2s;
 }
-.event-cta:hover{gap:.7rem}
-.event-cta svg{width:13px;height:13px;stroke:var(--sun);stroke-width:2.5;fill:none}
+.ev-link:hover{gap:.7rem}
+.ev-link svg{width:12px;height:12px;stroke:var(--sun);stroke-width:3;fill:none}
+
+/* ════ INFOS ════ */
+#infos{padding:6rem 0;background:#f4f9ff}
+.infos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:3.5rem}
+.info-card{
+  background:var(--white);border-radius:22px;padding:2rem;
+  box-shadow:0 3px 18px rgba(0,119,255,.06);transition:.25s;
+  border:1px solid rgba(0,119,255,.07);
+}
+.info-card:hover{box-shadow:0 12px 40px rgba(0,119,255,.13);transform:translateY(-4px);border-color:rgba(0,119,255,.15)}
+.info-icon-wrap{
+  width:50px;height:50px;border-radius:13px;margin-bottom:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.info-icon-wrap svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none}
+.info-ttl{font-family:var(--display);font-size:1.3rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.75rem}
+.info-body{font-size:.83rem;color:var(--gray);line-height:1.8}
+.info-body strong{color:var(--ocean);font-weight:700}
+.h-table{width:100%;border-collapse:collapse;margin-top:.4rem}
+.h-table td{padding:.38rem 0;font-size:.82rem;color:var(--gray);border-bottom:1px solid #e8f2fd}
+.h-table td:first-child{font-weight:700;color:var(--ink);width:58%}
+.rule-list{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin-top:.4rem}
+.rule-list li{display:flex;align-items:flex-start;gap:.55rem;font-size:.82rem;color:var(--gray)}
+.rule-dot{width:8px;height:8px;border-radius:50%;background:var(--ocean);flex-shrink:0;margin-top:.3rem}
 
 /* ════ CONTACT ════ */
 #contact{padding:6rem 0;background:var(--white)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem;align-items:start}
-.contact-cards{display:flex;flex-direction:column;gap:1rem}
-.contact-card{
-  display:flex;align-items:center;gap:1.2rem;
-  padding:1.3rem;background:var(--gray-light);border-radius:16px;
-  text-decoration:none;transition:.25s;border-left:3px solid transparent;
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;margin-top:3.5rem;align-items:start}
+.c-cards{display:flex;flex-direction:column;gap:.9rem}
+.c-card{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem;background:#f4f9ff;border-radius:16px;
+  text-decoration:none;border-left:3px solid transparent;transition:.22s;
 }
-.contact-card:hover{border-left-color:var(--ocean);background:#e3f2fd;transform:translateX(5px)}
-.cc-icon{
-  width:46px;height:46px;border-radius:12px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-}
-.cc-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
-.cc-label{font-size:.68rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;font-family:var(--font)}
-.cc-value{font-size:.88rem;font-weight:700;color:var(--ink);margin-top:.1rem}
-.contact-map{
-  background:var(--gray-light);border-radius:20px;overflow:hidden;
-  box-shadow:0 8px 32px rgba(0,119,255,.1);
-}
-.contact-map iframe{width:100%;height:280px;border:none;display:block}
-.contact-info{padding:1.4rem}
-.contact-info-title{font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.4rem}
-.contact-info-addr{font-size:.82rem;color:var(--gray);line-height:1.6}
+.c-card:hover{border-left-color:var(--ocean);background:#ddeeff;transform:translateX(5px)}
+.c-ic{width:44px;height:44px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.c-ic svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none}
+.c-lbl{font-size:.65rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.09em;font-family:var(--font)}
+.c-val{font-size:.86rem;font-weight:700;color:var(--ink);margin-top:.05rem}
+.c-map{background:#f4f9ff;border-radius:22px;overflow:hidden;box-shadow:0 6px 28px rgba(0,119,255,.09)}
+.c-map iframe{width:100%;height:260px;border:none;display:block}
+.c-addr{padding:1.3rem}
+.c-addr-name{font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:.04em;margin-bottom:.3rem}
+.c-addr-txt{font-size:.8rem;color:var(--gray);line-height:1.6}
 
 /* ════ FOOTER ════ */
 footer{
   background:var(--ocean-deep);color:var(--white);
-  padding:4rem 5% 2rem;position:relative;overflow:hidden;
+  padding:4.5rem 5% 2rem;overflow:hidden;position:relative;
 }
-.footer-inner{max-width:1200px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand img{width:54px;height:54px;object-fit:contain;margin-bottom:1rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
-.footer-brand-name{font-family:var(--display);font-size:1.4rem;color:var(--white);letter-spacing:.08em;margin-bottom:.4rem}
-.footer-brand-desc{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:1.2rem}
-.social-row{display:flex;gap:.6rem}
-.social-btn{
-  width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:.2s;text-decoration:none;
-}
-.social-btn:hover{background:var(--ocean);border-color:var(--ocean)}
-.social-btn svg{width:15px;height:15px;stroke:rgba(255,255,255,.7);stroke-width:2;fill:none}
-.footer-col-title{font-family:var(--font);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.footer-links a{font-size:.8rem;color:rgba(255,255,255,.45);text-decoration:none;transition:.15s}
-.footer-links a:hover{color:var(--sun)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.footer-copy{font-size:.72rem;color:rgba(255,255,255,.3);font-family:var(--font)}
-.footer-water{
-  position:absolute;bottom:0;left:0;right:0;height:80px;opacity:.08;overflow:hidden;
-}
-
-/* WhatsApp float */
-.wa-float{
-  position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;
-  width:58px;height:58px;background:#25D366;border-radius:50%;
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto 3rem}
+.fb-logo{width:52px;height:52px;border-radius:50%;border:2px solid rgba(255,255,255,.15);overflow:hidden;margin-bottom:.9rem}
+.fb-logo img{width:100%;height:100%;object-fit:cover}
+.fb-name{font-family:var(--display);font-size:1.4rem;letter-spacing:.1em;color:var(--white);margin-bottom:.4rem}
+.fb-desc{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:1.1rem;max-width:300px}
+.soc-row{display:flex;gap:.5rem}
+.soc-btn{
+  width:35px;height:35px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 24px rgba(37,211,102,.5);
-  text-decoration:none;transition:all .2s;
+  text-decoration:none;transition:.2s;
 }
-.wa-float:hover{background:#20ba5a;transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,.6)}
-.wa-float svg{width:28px;height:28px;fill:var(--white)}
+.soc-btn:hover{background:var(--ocean);border-color:var(--ocean)}
+.soc-btn svg{width:14px;height:14px;stroke:rgba(255,255,255,.6);stroke-width:2;fill:none}
+.fc-title{font-family:var(--font);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:rgba(255,255,255,.45);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.fc-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.fc-links a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;transition:.15s}
+.fc-links a:hover{color:var(--sun)}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  border-top:1px solid rgba(255,255,255,.07);padding-top:1.8rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.25);font-family:var(--font)}
+.footer-tagline{font-size:.68rem;color:rgba(255,255,255,.18);font-family:var(--font);font-style:italic}
+.footer-wave{position:absolute;bottom:0;left:0;right:0;opacity:.06;pointer-events:none}
 
-/* ════ REVEAL ════ */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
-.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}.reveal-d6{transition-delay:.6s}
+/* WhatsApp Float */
+.wa{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;
+  width:56px;height:56px;background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.5);text-decoration:none;transition:all .22s;
+}
+.wa:hover{background:#1da851;transform:scale(1.12);box-shadow:0 10px 32px rgba(37,211,102,.65)}
+.wa svg{width:27px;height:27px;fill:var(--white)}
 
 /* ════ RESPONSIVE ════ */
+@media(max-width:1200px){
+  .nav-links{gap:1.2rem}
+  .nav-links a{font-size:.75rem}
+}
+@media(max-width:1100px){
+  .hero-card{padding:1.4rem}
+  .hcard-num{font-size:1.8rem}
+  .hcard-stats{grid-template-columns:1fr 1fr;gap:.8rem}
+  .nav-links{gap:1rem}
+  .nav-links a{font-size:.72rem}
+}
 @media(max-width:1024px){
-  .attractions-grid,.tarifs-grid,.events-grid{grid-template-columns:repeat(2,1fr)}
-  .resto-layout,.contact-grid{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .hero-scroll{display:none}
+  .attractions,.ev-grid{grid-template-columns:repeat(2,1fr)}
+  .t-grid{grid-template-columns:repeat(2,1fr)}
+  .t-card.hot{transform:none}
+  .resto-grid,.contact-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
-  .gallery-masonry{columns:2}
-  .tarif-card.featured{transform:none}
+  .gallery{columns:2}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-reserve{display:none}
+  .burger{display:flex}
 }
 @media(max-width:768px){
-  .nav-links,.nav-cta{display:none}
-  .hamburger{display:flex}
-  .hero-stats{gap:1.5rem;bottom:100px}
-  .hstat-num{font-size:1.5rem}
-  .attractions-grid,.tarifs-grid,.natation-grid,.infos-grid,.events-grid{grid-template-columns:1fr}
-  .gallery-masonry{columns:1}
-  .resto-img.tall img{height:250px}
+  .attractions,.t-grid,.nat-grid,.infos-grid,.ev-grid{grid-template-columns:1fr}
+  .gallery{columns:1}
+  .rp-item.tall img{height:240px}
   .footer-grid{grid-template-columns:1fr}
-  .hero-title{font-size:clamp(3rem,12vw,5rem)}
+  .hero-h1{font-size:clamp(3.5rem,15vw,6rem)}
+  .hero-inner{padding:0 4% 9rem}
+  .hero-ctas{flex-direction:column;align-items:flex-start;gap:.8rem}
+  .btn-primary,.btn-ghost{width:100%;justify-content:center;max-width:280px}
+  section{padding:4rem 0}
+  .sec{padding:0 4%}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ BUBBLES DÉCO ══ -->
-<div id="bubbles-container" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden"></div>
+<!-- ════ BUBBLE LAYER ════ -->
+<div id="bubble-layer" aria-hidden="true"></div>
 
-<!-- ══ PRELOADER ══ -->
-<div class="preloader-wrapper" id="preloader">
-  <div class="preload-item">
-    <div class="preloader-inner">
-      <svg width="98" height="65" viewBox="0 0 98 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M48.7799 0L97.2768 20.0117H0.847656L48.7799 0Z" fill="#0077FF"/>
-        <path d="M17.3429 46.873H15.8322V61.6445H11.7119V64.3678H17.3582V61.6445H17.3429V46.873Z" fill="#4FC3F7"/>
-        <path d="M21.8145 61.644L21.8908 48.9355H18.854L18.793 64.3535H18.8387V64.381H24.485V61.644H21.8145Z" fill="#4FC3F7"/>
-        <path d="M86.5183 61.6719H80.8721V64.3951H86.5183V61.6719Z" fill="#4FC3F7"/>
-        <path d="M79.3904 61.6719H73.7441V64.3951H79.3904V61.6719Z" fill="#4FC3F7"/>
-        <path d="M21.8611 50.6683H24.7301L18.2292 43.8877L11.8047 50.682H14.6889V58.9343H13.5138V61.6713H23.0209V58.9343H21.8611V50.6683Z" fill="#0077FF"/>
-        <path d="M38.0027 42.1279H36.492L36.4767 61.617H32.3564V64.3402H38.018V61.617H37.9875L38.0027 42.1279Z" fill="#4FC3F7"/>
-        <path d="M42.4762 61.6309L42.461 44.4113L39.5463 40.9453L39.4395 64.3266H39.4852V64.3541H45.1315V61.6309H42.4762Z" fill="#4FC3F7"/>
-        <path d="M63.1055 64.2571H60.084V31.2207L63.075 34.8242L63.1055 64.2571Z" fill="#4FC3F7"/>
-        <path d="M58.6367 64.2154H57.126L57.1565 32.9395H58.6673L58.6367 64.2154Z" fill="#4FC3F7"/>
-        <path d="M65.7791 61.5479H60.1328V64.2711H65.7791V61.5479Z" fill="#4FC3F7"/>
-        <path d="M58.6531 61.5332H53.0068V64.2564H58.6531V61.5332Z" fill="#4FC3F7"/>
-        <path d="M42.5051 45.5795L45.374 45.5657L38.8731 38.7852L32.4639 45.5795H35.3328V58.8931H34.1577V61.6301H43.6801V58.8931H42.5051V45.5795Z" fill="#0077FF"/>
-        <path d="M63.093 37.1898H65.9619L59.461 30.4092L53.0518 37.2035H55.9207L55.9512 58.8381H54.7762V61.5614H64.2833V58.8381H63.1235L63.093 37.1898Z" fill="#0077FF"/>
-        <path d="M83.6486 29.7484H86.5175L80.0167 22.9678L73.6074 29.7484H76.4763L76.5069 58.9613H75.3318V61.6845H84.8542V58.9613H83.6791L83.6486 29.7484Z" fill="#0077FF"/>
-        <path d="M17.3427 44.025L15.8319 45.6204L15.7861 22.9268H17.2969L17.3427 44.025Z" fill="#4FC3F7"/>
-        <path d="M21.8118 46.8445L18.7903 43.6811L18.7598 22.9268H21.7813L21.8118 46.8445Z" fill="#4FC3F7"/>
-        <path d="M37.9909 22.9268L38.0061 38.8948L36.4801 40.504L36.4648 22.9268H37.9909Z" fill="#4FC3F7"/>
-        <path d="M42.4762 22.9404V41.728L39.4395 38.5647V22.9404H42.4762Z" fill="#4FC3F7"/>
-        <path d="M63.0616 22.8994V33.4348L60.04 30.2714V22.8994H63.0616Z" fill="#4FC3F7"/>
-        <path d="M58.608 22.9131L58.5928 30.5189L57.082 32.1281L57.0973 22.9131H58.608Z" fill="#4FC3F7"/>
-      </svg>
-      <div class="preloader-layer"></div>
-      <span class="line-1"></span>
-      <span class="line-2"></span>
-    </div>
-    <div class="percent"><p>0</p>%</div>
+<!-- ════ PRELOADER ════ -->
+<div id="preloader">
+  <div class="pl-logo">
+    <img src="logo.jpeg" alt="Tsunami"/>
   </div>
-  <div class="p-side left"></div>
-  <div class="p-side right"></div>
+  <div class="pl-title">TSUNAMI</div>
+  <div class="pl-sub">AquaPark · Libreville</div>
+  <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+  <div class="pl-pct" id="plPct">0%</div>
+  <div class="pl-wave">
+    <svg viewBox="0 0 2880 80" preserveAspectRatio="none" style="width:200%;height:80px">
+      <path d="M0,40 C480,80 960,0 1440,40 C1920,80 2400,0 2880,40 L2880,80 L0,80 Z" fill="rgba(255,255,255,.08)"/>
+    </svg>
+  </div>
 </div>
 
-<div class="page">
-<!-- ══ NAV ══ -->
-<nav id="navbar">
+<!-- ════ PAGE ════ -->
+<div id="page" style="opacity:0;transition:opacity .5s">
+
+<!-- NAV -->
+<nav id="nav">
   <a href="#" class="nav-logo">
-    <img src="logo.jpeg" alt="Tsunami AquaPark"/>
+    <div class="nav-logo-img"><img src="logo.jpeg" alt="Tsunami"/></div>
     <div>
-      <div class="nav-logo-text">TSUNAMI</div>
-      <div class="nav-logo-sub">AquaPark · Libreville</div>
+      <div class="nav-logo-name">TSUNAMI</div>
+      <div class="nav-logo-tag">AquaPark · Libreville</div>
     </div>
   </a>
   <div class="nav-links">
@@ -625,413 +708,454 @@ footer{
     <a href="#infos">Infos</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="https://wa.me/241060404010" class="nav-cta" target="_blank">Réserver</a>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+  <a href="https://wa.me/241060404010" class="nav-reserve" target="_blank">Réserver</a>
+  <button class="burger" id="burger" aria-label="Menu" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#parc" onclick="closeMenu()">Le Parc</a>
-  <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
-  <a href="#restauration" onclick="closeMenu()">Restauration</a>
-  <a href="#galerie" onclick="closeMenu()">Galerie</a>
-  <a href="#infos" onclick="closeMenu()">Infos Pratiques</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-  <a href="https://wa.me/241060404010" target="_blank" style="color:var(--sun)">Réserver via WhatsApp</a>
+<div class="mobile-nav" id="mNav">
+  <a href="#parc" onclick="closeNav()">Le Parc</a>
+  <a href="#tarifs" onclick="closeNav()">Tarifs</a>
+  <a href="#restauration" onclick="closeNav()">Restauration</a>
+  <a href="#galerie" onclick="closeNav()">Galerie</a>
+  <a href="#events" onclick="closeNav()">Événements</a>
+  <a href="#infos" onclick="closeNav()">Infos Pratiques</a>
+  <a href="#contact" onclick="closeNav()">Contact</a>
+  <a href="https://wa.me/241060404010" target="_blank" style="color:var(--sun)" onclick="closeNav()">Réserver sur WhatsApp</a>
 </div>
 
-<!-- ══ HERO ══ -->
+<!-- ════ HERO ════ -->
 <section class="hero">
-  <!-- Bubbles in hero -->
-  <div id="hero-bubbles" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3"></div>
-
-  <div class="hero-water"></div>
-
-  <!-- Animated wave -->
-  <div class="hero-wave">
-    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width:200%;height:120px">
-      <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(255,255,255,.15)"/>
-      <path d="M0,80 C240,40 480,100 720,80 C960,60 1200,100 1440,80 L1440,120 L0,120 Z" fill="rgba(255,255,255,.08)"/>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-water-overlay"></div>
+  <!-- Bubbles hero -->
+  <div id="hBubbles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4" aria-hidden="true"></div>
+  <!-- Wave layers -->
+  <div class="hero-waves">
+    <svg class="hw1" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <path d="M0,80 C480,140 960,20 1440,80 C1920,140 2400,20 2880,80 L2880,160 L0,160 Z" fill="rgba(255,255,255,.18)"/>
     </svg>
-    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width:200%;height:120px">
-      <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(255,255,255,.1)"/>
+    <svg class="hw2" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <path d="M0,100 C480,50 960,150 1440,100 C1920,50 2400,150 2880,100 L2880,160 L0,160 Z" fill="rgba(79,195,247,.15)"/>
+    </svg>
+    <svg class="hw3" viewBox="0 0 2880 160" preserveAspectRatio="none">
+      <path d="M0,120 C480,160 960,80 1440,120 C1920,160 2400,80 2880,120 L2880,160 L0,160 Z" fill="rgba(0,119,255,.12)"/>
     </svg>
   </div>
 
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span></span>
-      Parc Aquatique — Libreville, Gabon
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-chip">
+        <span class="hero-chip-dot"></span>
+        Parc Aquatique — Libreville, Gabon
+      </div>
+      <h1 class="hero-h1">
+        TSUNAMI
+        <span class="hl-2">AquaPark</span>
+      </h1>
+      <p class="hero-tagline">L'aventure aquatique commence ici</p>
+      <p class="hero-desc">Toboggans géants, bassins cristallins, espace enfants sécurisé, restauration sur place et événements inoubliables — au cœur de Libreville.</p>
+      <div class="hero-ctas">
+        <a href="#tarifs" class="btn-primary">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Voir les Tarifs
+        </a>
+        <a href="#parc" class="btn-ghost">
+          Découvrir le parc
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+      </div>
     </div>
-    <h1 class="hero-title">
-      TSUNAMI
-      <span class="wave-text">AquaPark</span>
-    </h1>
-    <p class="hero-subtitle">L'aventure aquatique commence ici</p>
-    <p class="hero-desc">Toboggans géants, bassins, espace enfants, restauration et événements — une journée inoubliable pour toute la famille au cœur de Libreville.</p>
-    <div class="hero-btns">
-      <a href="#tarifs" class="btn-sun">
-        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Voir les Tarifs
-      </a>
-      <a href="#parc" class="btn-wave">
-        Découvrir le parc
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </a>
+    <div class="hero-card">
+      <div class="hcard-title">Tsunami en chiffres</div>
+      <div class="hcard-stats">
+        <div class="hcard-stat"><div class="hcard-num">10<em>+</em></div><div class="hcard-lbl">Toboggans</div></div>
+        <div class="hcard-stat"><div class="hcard-num">3</div><div class="hcard-lbl">Bassins</div></div>
+        <div class="hcard-stat"><div class="hcard-num">7j</div><div class="hcard-lbl">/ 7 ouvert</div></div>
+        <div class="hcard-stat"><div class="hcard-num">All</div><div class="hcard-lbl">Âges</div></div>
+      </div>
+      <div class="hcard-divider"></div>
+      <div class="hcard-items">
+        <div class="hcard-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Toboggans pour tous niveaux</div>
+        <div class="hcard-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Espace enfants sécurisé</div>
+        <div class="hcard-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Restauration sur place</div>
+        <div class="hcard-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cours de natation certifiés</div>
+        <div class="hcard-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Salle événements privatisable</div>
+      </div>
     </div>
   </div>
-
-  <div class="hero-stats">
-    <div class="hstat"><div class="hstat-num">10<span>+</span></div><div class="hstat-lbl">Toboggans</div></div>
-    <div class="hstat-sep"></div>
-    <div class="hstat"><div class="hstat-num">3</div><div class="hstat-lbl">Bassins</div></div>
-    <div class="hstat-sep"></div>
-    <div class="hstat"><div class="hstat-num">7j</div><div class="hstat-lbl">/ 7 ouvert</div></div>
-    <div class="hstat-sep"></div>
-    <div class="hstat"><div class="hstat-num">Tous</div><div class="hstat-lbl">Âges</div></div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Défiler
   </div>
 </section>
 
-<!-- Wave top -->
-<div class="wave-divider" style="background:var(--ocean);margin-top:-2px">
+<!-- Wave sep -->
+<div class="wd" style="background:var(--white)">
   <svg viewBox="0 0 1440 70" preserveAspectRatio="none" height="70">
-    <path d="M0,40 C360,70 720,10 1080,40 C1260,55 1380,30 1440,40 L1440,0 L0,0 Z" fill="white"/>
+    <path d="M0,35 C360,65 720,5 1080,35 C1260,50 1370,28 1440,35 L1440,0 L0,0 Z" fill="#0055cc"/>
   </svg>
 </div>
 
-<!-- ══ PARC ══ -->
+<!-- ════ PARC ════ -->
 <section id="parc">
-  <div class="sec-inner">
-    <div class="reveal">
-      <div class="sec-label">01 — Le Parc</div>
-      <h2 class="sec-title">Des attractions <span>pour tous</span></h2>
-      <p class="sec-sub">Du toboggan géant pour les aventuriers aux bassins tranquilles pour les petits — Tsunami a tout pour une journée parfaite.</p>
+  <div class="sec">
+    <div class="r">
+      <div class="eyebrow">01 — Le Parc</div>
+      <h2 class="sec-h">Des attractions <span>pour tous</span></h2>
+      <p class="sec-p">Du toboggan géant pour les aventuriers aux bassins tranquilles pour les petits — Tsunami a tout pour une journée parfaite en famille.</p>
     </div>
-    <div class="attractions-grid">
-      <div class="attr-card reveal reveal-d1">
-        <img src="hero1.jpg" alt="Toboggans géants Tsunami" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:var(--ocean)">
-            <svg viewBox="0 0 24 24"><path d="M22 12s-5 7-10 7-10-7-10-7 5-7 10-7 10 7 10 7z"/></svg>
+    <div class="attractions">
+      <div class="a-card r r1">
+        <div class="a-img-wrap">
+          <img src="hero1.jpg" alt="Toboggans géants" class="a-img"/>
+          <div class="a-img-overlay"></div>
+          <span class="a-tag" style="background:var(--sun);color:var(--ink)">Sensations fortes</span>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:var(--sky-pale);border:1px solid #c8e6ff">
+              <svg viewBox="0 0 24 24" style="stroke:var(--ocean)"><path d="M22 12s-5 7-10 7-10-7-10-7 5-7 10-7 10 7 10 7z"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">10+ toboggans</span>
           </div>
-          <span class="attr-badge">Sensations</span>
-          <div class="attr-name">Toboggans Géants</div>
-          <div class="attr-desc">Des toboggans à vitesse et à spirales pour les amateurs de sensations fortes. Adrénaline garantie !</div>
+          <div class="a-n">Toboggans Géants</div>
+          <div class="a-d">Spirales, vitesse et adrénaline garantie. Des toboggans pour tous les niveaux, des plus doux aux plus intenses.</div>
         </div>
       </div>
-      <div class="attr-card reveal reveal-d2">
-        <img src="pool.jpg" alt="Bassins Tsunami" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:var(--tropical)">
-            <svg viewBox="0 0 24 24"><path d="M2 12h20M2 6c2 2 4 2 6 0s4-2 6 0 4 2 6 0M2 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/></svg>
+      <div class="a-card r r2">
+        <div class="a-img-wrap">
+          <img src="pool.jpg" alt="Bassins piscines" class="a-img"/>
+          <div class="a-img-overlay"></div>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2)">
+              <svg viewBox="0 0 24 24" style="stroke:var(--tropical)"><path d="M2 12h20M2 6c2 2 4 2 6 0s4-2 6 0 4 2 6 0M2 18c2 2 4 2 6 0s4-2 6 0 4 2 6 0"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">3 bassins</span>
           </div>
-          <div class="attr-name">Bassins & Piscines</div>
-          <div class="attr-desc">Grands bassins pour nager et piscines tranquilles pour se détendre au soleil de Libreville.</div>
+          <div class="a-n">Bassins & Piscines</div>
+          <div class="a-d">Grands bassins pour nager et piscines tranquilles pour se détendre au soleil de Libreville. Eau cristalline.</div>
         </div>
       </div>
-      <div class="attr-card reveal reveal-d3">
-        <img src="hero2.jpg" alt="Espace enfants Tsunami" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:var(--sun-warm)">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      <div class="a-card r r3">
+        <div class="a-img-wrap">
+          <img src="hero2.jpg" alt="Espace enfants" class="a-img"/>
+          <div class="a-img-overlay"></div>
+          <span class="a-tag" style="background:var(--tropical);color:#fff">Famille</span>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:#fff8e1;border:1px solid #ffe082">
+              <svg viewBox="0 0 24 24" style="stroke:var(--sun-warm)"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">0–12 ans</span>
           </div>
-          <span class="attr-badge" style="background:var(--tropical);color:#fff">Famille</span>
-          <div class="attr-name">Espace Enfants</div>
-          <div class="attr-desc">Zone dédiée aux tout-petits avec jeux d'eau, mini-toboggans et piscine à balles dans un espace sécurisé.</div>
+          <div class="a-n">Espace Enfants</div>
+          <div class="a-d">Zone dédiée aux tout-petits avec jeux d'eau, mini-toboggans colorés et piscine à balles dans un espace entièrement sécurisé.</div>
         </div>
       </div>
-      <div class="attr-card reveal reveal-d1">
-        <img src="relax.jpg" alt="Espace détente" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:#9c27b0">
-            <svg viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/><path d="M12 6v6l4 2"/></svg>
+      <div class="a-card r r1">
+        <div class="a-img-wrap">
+          <img src="relax.jpg" alt="Détente" class="a-img"/>
+          <div class="a-img-overlay"></div>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:#f3e5f5;border:1px solid #ce93d8">
+              <svg viewBox="0 0 24 24" style="stroke:#9c27b0"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">Sun loungers</span>
           </div>
-          <div class="attr-name">Espace Détente</div>
-          <div class="attr-desc">Chaises longues, parasols de paille et coins lounges pour se reposer entre deux plongeons.</div>
+          <div class="a-n">Espace Détente</div>
+          <div class="a-d">Chaises longues, parasols de paille, coins lounges pour se reposer entre deux plongeons sous le soleil gabonais.</div>
         </div>
       </div>
-      <div class="attr-card reveal reveal-d2">
-        <img src="hero1.jpg" alt="Salle événements" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:var(--red,#e91e63)">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <div class="a-card r r2">
+        <div class="a-img-wrap">
+          <img src="hero1.jpg" alt="Salle événements" class="a-img"/>
+          <div class="a-img-overlay"></div>
+          <span class="a-tag" style="background:var(--coral);color:#fff">Événements</span>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:#fce4ec;border:1px solid #f48fb1">
+              <svg viewBox="0 0 24 24" style="stroke:#e91e63"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">Privatisable</span>
           </div>
-          <div class="attr-name">Salle Événements</div>
-          <div class="attr-desc">Salle climatisée décorée pour anniversaires, fêtes scolaires et événements privés avec décoration incluse.</div>
+          <div class="a-n">Salle Événements</div>
+          <div class="a-d">Salle climatisée avec décoration ballons pour anniversaires, fêtes scolaires et événements privés inoubliables.</div>
         </div>
       </div>
-      <div class="attr-card reveal reveal-d3">
-        <img src="pool.jpg" alt="Cours de natation" class="attr-img"/>
-        <div class="attr-body">
-          <div class="attr-icon" style="background:var(--ocean-dark)">
-            <svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><circle cx="12" cy="7" r="3"/></svg>
+      <div class="a-card r r3">
+        <div class="a-img-wrap">
+          <img src="pool.jpg" alt="Natation" class="a-img"/>
+          <div class="a-img-overlay"></div>
+          <span class="a-tag" style="background:var(--ocean-deep);color:#fff">Sport</span>
+        </div>
+        <div class="a-body">
+          <div class="a-icon-row">
+            <div class="a-icon" style="background:var(--sky-pale);border:1px solid #b3e5fc">
+              <svg viewBox="0 0 24 24" style="stroke:var(--ocean)"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><circle cx="12" cy="7" r="3"/></svg>
+            </div>
+            <span style="font-family:var(--font);font-size:.65rem;color:var(--gray);font-weight:600">Tous niveaux</span>
           </div>
-          <span class="attr-badge" style="background:var(--ocean-dark);color:#fff">Sport</span>
-          <div class="attr-name">Cours de Natation</div>
-          <div class="attr-desc">Cours encadrés par des professionnels certifiés, adaptés à tous les niveaux et toutes les tranches d'âge.</div>
+          <div class="a-n">Cours de Natation</div>
+          <div class="a-d">Cours encadrés par des professionnels certifiés, adaptés à tous les niveaux et toutes les tranches d'âge.</div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Wave bottom -->
-  <div class="wave-divider" style="background:#f0f7ff;margin-top:4rem">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" height="70">
-      <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,70 L0,70 Z" fill="white"/>
+  <div class="wd" style="background:#dceeff;margin-top:4rem">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,25 C360,55 720,0 1080,25 C1260,38 1380,18 1440,25 L1440,60 L0,60 Z" fill="white"/>
     </svg>
   </div>
 </section>
 
-<!-- ══ TARIFS ══ -->
+<!-- ════ TARIFS ════ -->
 <section id="tarifs">
-  <div class="sec-inner">
-    <div class="reveal" style="text-align:center">
-      <div class="sec-label" style="justify-content:center">02 — Tarifs</div>
-      <h2 class="sec-title">Nos <span>tarifs</span></h2>
-      <p class="sec-sub" style="margin:0 auto">Des prix accessibles pour que toute la famille profite de l'expérience Tsunami.</p>
+  <div class="sec">
+    <div class="r" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">02 — Tarifs</div>
+      <h2 class="sec-h">Nos <span>tarifs</span></h2>
+      <p class="sec-p" style="margin:0 auto">Des prix accessibles pour que toute la famille profite pleinement de l'expérience Tsunami.</p>
     </div>
-    <div class="tarifs-grid">
-      <div class="tarif-card reveal reveal-d1">
-        <div class="tarif-header">
-          <span class="tarif-badge tarif-badge-default">Enfant</span>
-          <div class="tarif-icon">🧒</div>
-          <div class="tarif-name">Enfant</div>
-          <div class="tarif-price">3 000 <span>FCFA</span></div>
+    <div class="t-grid">
+      <div class="t-card r r1">
+        <div class="t-head">
+          <span class="t-chip">Enfant</span>
+          <div class="t-emoji">🧒</div>
+          <div class="t-name">Enfant</div>
+          <div class="t-price">3 000 <small>FCFA</small></div>
         </div>
-        <div class="tarif-body">
-          <div class="tarif-divider"></div>
-          <ul class="tarif-items">
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Moins de 12 ans</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Accès tous bassins enfants</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Espace jeux inclus</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Journée complète</li>
+        <div class="t-body">
+          <div class="t-sep"></div>
+          <ul class="t-list">
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Moins de 12 ans</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tous bassins enfants</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Espace jeux inclus</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Journée complète</li>
           </ul>
-          <a href="https://wa.me/241060404010" target="_blank" class="tarif-cta">Réserver</a>
+          <a href="https://wa.me/241060404010" target="_blank" class="t-btn">Réserver</a>
         </div>
       </div>
-      <div class="tarif-card featured reveal reveal-d2">
-        <div class="tarif-header">
-          <span class="tarif-badge">Populaire</span>
-          <div class="tarif-icon">👨‍👩‍👧‍👦</div>
-          <div class="tarif-name">Adulte</div>
-          <div class="tarif-price">5 000 <span>FCFA</span></div>
+      <div class="t-card hot r r2">
+        <div class="t-head">
+          <span class="t-chip">⭐ Le plus populaire</span>
+          <div class="t-emoji">🏊‍♂️</div>
+          <div class="t-name">Adulte</div>
+          <div class="t-price">5 000 <small>FCFA</small></div>
         </div>
-        <div class="tarif-body">
-          <div class="tarif-divider"></div>
-          <ul class="tarif-items">
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Accès intégral au parc</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tous les toboggans</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tous les bassins</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Journée complète</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Chaise longue offerte</li>
+        <div class="t-body">
+          <div class="t-sep"></div>
+          <ul class="t-list">
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Accès intégral au parc</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tous les toboggans</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tous les bassins</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Journée complète</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Chaise longue offerte</li>
           </ul>
-          <a href="https://wa.me/241060404010" target="_blank" class="tarif-cta">Réserver</a>
+          <a href="https://wa.me/241060404010" target="_blank" class="t-btn">Réserver maintenant</a>
         </div>
       </div>
-      <div class="tarif-card reveal reveal-d3">
-        <div class="tarif-header">
-          <span class="tarif-badge tarif-badge-default">Groupe</span>
-          <div class="tarif-icon">🎉</div>
-          <div class="tarif-name">Groupe</div>
-          <div class="tarif-price" style="font-size:1.8rem">Sur devis</div>
+      <div class="t-card r r3">
+        <div class="t-head">
+          <span class="t-chip">Groupe</span>
+          <div class="t-emoji">🎉</div>
+          <div class="t-name">Groupe</div>
+          <div class="t-price" style="font-size:1.8rem">Sur devis</div>
         </div>
-        <div class="tarif-body">
-          <div class="tarif-divider"></div>
-          <ul class="tarif-items">
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>À partir de 10 personnes</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tarifs négociés</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Salle événements disponible</li>
-            <li class="tarif-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Groupes scolaires bienvenus</li>
+        <div class="t-body">
+          <div class="t-sep"></div>
+          <ul class="t-list">
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Dès 10 personnes</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Tarifs préférentiels</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Salle événements dispo</li>
+            <li class="t-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sorties scolaires</li>
           </ul>
-          <a href="https://wa.me/241060404010" target="_blank" class="tarif-cta">Nous contacter</a>
+          <a href="https://wa.me/241060404010" target="_blank" class="t-btn">Demander un devis</a>
         </div>
       </div>
     </div>
-
     <!-- Natation -->
-    <div style="margin-top:4rem" class="reveal">
-      <div class="sec-label">Cours de natation</div>
-      <h3 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--ink);letter-spacing:.04em;margin-bottom:.5rem">Tarifs <span style="color:var(--ocean)">natation</span></h3>
+    <div class="nat-wrap r">
+      <div class="eyebrow">Cours de natation</div>
+      <h3 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.3rem);color:var(--ink);letter-spacing:.04em;margin-bottom:.3rem">Tarifs <span style="color:var(--ocean)">natation</span></h3>
     </div>
-    <div class="natation-grid">
-      <div class="nat-card reveal reveal-d1">
-        <div class="nat-icon">🏊</div>
+    <div class="nat-grid">
+      <div class="nat-card r r1">
+        <div class="nat-emoji">🏊</div>
         <div class="nat-name">3x / semaine</div>
-        <div class="nat-price">65 000 <span>FCFA / mois</span></div>
-        <div class="nat-desc">Cours collectifs · Tous niveaux</div>
+        <div class="nat-price">65 000 <small>FCFA / mois</small></div>
+        <div class="nat-tag">Cours collectifs · Tous niveaux</div>
       </div>
-      <div class="nat-card reveal reveal-d2">
-        <div class="nat-icon">🌊</div>
+      <div class="nat-card r r2">
+        <div class="nat-emoji">🌊</div>
         <div class="nat-name">2x / semaine</div>
-        <div class="nat-price">55 000 <span>FCFA / mois</span></div>
-        <div class="nat-desc">Cours collectifs · Tous niveaux</div>
+        <div class="nat-price">55 000 <small>FCFA / mois</small></div>
+        <div class="nat-tag">Cours collectifs · Tous niveaux</div>
       </div>
-      <div class="nat-card reveal reveal-d3">
-        <div class="nat-icon">⭐</div>
+      <div class="nat-card r r3">
+        <div class="nat-emoji">⭐</div>
         <div class="nat-name">Cours particuliers</div>
-        <div class="nat-price">20 000 <span>FCFA / séance</span></div>
-        <div class="nat-desc">Suivi personnalisé · Tous âges</div>
+        <div class="nat-price">20 000 <small>FCFA / séance</small></div>
+        <div class="nat-tag">Suivi personnalisé · Tous âges</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ RESTAURATION ══ -->
+<!-- ════ RESTAURATION ════ -->
 <section id="restauration">
-  <div class="sec-inner">
-    <div class="reveal">
-      <div class="sec-label">03 — Restauration</div>
-      <h2 class="sec-title">Se régaler <span>au bord de l'eau</span></h2>
-      <p class="sec-sub">Notre espace de restauration vous propose pizzas, snacks, boissons fraîches et bien plus — sans quitter le parc.</p>
+  <div class="sec">
+    <div class="r">
+      <div class="eyebrow">03 — Restauration</div>
+      <h2 class="sec-h">Se régaler <span>au bord de l'eau</span></h2>
+      <p class="sec-p">Pizzas maison, snacks, boissons fraîches et plats chauds — tout est préparé sur place pour que vous ne manquiez rien.</p>
     </div>
-    <div class="resto-layout">
-      <div class="resto-img-grid reveal">
-        <div style="display:flex;flex-direction:column;gap:.8rem">
-          <div class="resto-img tall">
-            <img src="pizza.jpg" alt="Pizza Tsunami"/>
-            <div class="resto-img-label">Pizzas maison</div>
+    <div class="resto-grid">
+      <div class="resto-photos r">
+        <div style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="rp-item tall">
+            <img src="pizza.jpg" alt="Pizzas"/>
+            <div class="rp-cap">🍕 Pizzas maison</div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:.8rem">
-          <div class="resto-img">
-            <img src="drinks.jpg" alt="Boissons fraîches"/>
-            <div class="resto-img-label">Boissons fraîches</div>
+        <div style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="rp-item">
+            <img src="drinks.jpg" alt="Boissons"/>
+            <div class="rp-cap">🥤 Boissons fraîches</div>
           </div>
-          <div class="resto-img">
-            <img src="snacks.jpg" alt="Snacks et encas"/>
-            <div class="resto-img-label">Snacks & encas</div>
+          <div class="rp-item">
+            <img src="snacks.jpg" alt="Snacks"/>
+            <div class="rp-cap">🍟 Snacks & encas</div>
           </div>
         </div>
       </div>
-      <div class="reveal reveal-d2">
-        <div class="sec-label" style="margin-bottom:.5rem">Notre menu</div>
-        <h3 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--ink);letter-spacing:.04em;margin-bottom:1rem">Ce qu'on vous <span style="color:var(--ocean)">sert</span></h3>
-        <p style="font-size:.85rem;color:var(--gray);line-height:1.75;margin-bottom:1rem">Tout est préparé sur place pour que vous puissiez profiter de votre journée sans vous éloigner du parc.</p>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item-icon" style="background:#ff5722">
-              <svg viewBox="0 0 24 24" style="stroke:#fff"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            </div>
-            <div><div class="menu-item-name">Pizzas maison</div><div class="menu-item-desc">Plusieurs tailles et garnitures disponibles</div></div>
-            <div class="menu-item-price">À partir de 3 000</div>
+      <div class="r r2">
+        <div class="eyebrow" style="margin-bottom:.4rem">Notre menu</div>
+        <h3 style="font-family:var(--display);font-size:clamp(1.6rem,3vw,2.3rem);color:var(--ink);letter-spacing:.04em;margin-bottom:.8rem">Ce qu'on vous <span style="color:var(--ocean)">sert</span></h3>
+        <p style="font-size:.84rem;color:var(--gray);line-height:1.8;margin-bottom:.5rem">Tout est cuisiné sur place. Profitez de votre journée sans vous soucier de rien.</p>
+        <div class="menu-list">
+          <div class="m-item">
+            <div class="m-ic" style="background:#ff5722"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div>
+            <div><div class="m-name">Pizzas maison</div><div class="m-desc">Plusieurs tailles et garnitures au choix</div></div>
+            <div class="m-price">3 000+ FCFA</div>
           </div>
-          <div class="menu-item">
-            <div class="menu-item-icon" style="background:var(--sun-warm)">
-              <svg viewBox="0 0 24 24" style="stroke:#fff"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-            </div>
-            <div><div class="menu-item-name">Snacks & encas</div><div class="menu-item-desc">Frites, sandwichs, viennoiseries</div></div>
-            <div class="menu-item-price">À partir de 1 000</div>
+          <div class="m-item">
+            <div class="m-ic" style="background:var(--sun-warm)"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+            <div><div class="m-name">Snacks & encas</div><div class="m-desc">Frites, sandwichs, viennoiseries</div></div>
+            <div class="m-price">1 000+ FCFA</div>
           </div>
-          <div class="menu-item">
-            <div class="menu-item-icon" style="background:var(--tropical)">
-              <svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M8 2v2M16 2v2M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-            </div>
-            <div><div class="menu-item-name">Boissons fraîches</div><div class="menu-item-desc">Jus naturels, sodas, eau, cocktails sans alcool</div></div>
-            <div class="menu-item-price">À partir de 500</div>
+          <div class="m-item">
+            <div class="m-ic" style="background:var(--tropical)"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+            <div><div class="m-name">Boissons fraîches</div><div class="m-desc">Jus naturels, sodas, eau, cocktails sans alcool</div></div>
+            <div class="m-price">500+ FCFA</div>
           </div>
-          <div class="menu-item">
-            <div class="menu-item-icon" style="background:var(--ocean)">
-              <svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-            </div>
-            <div><div class="menu-item-name">Plats chauds</div><div class="menu-item-desc">Plats du jour préparés sur place</div></div>
-            <div class="menu-item-price">À partir de 2 000</div>
+          <div class="m-item">
+            <div class="m-ic" style="background:var(--ocean)"><svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+            <div><div class="m-name">Plats chauds du jour</div><div class="m-desc">Cuisine maison préparée chaque jour</div></div>
+            <div class="m-price">2 000+ FCFA</div>
           </div>
         </div>
-        <p style="font-size:.75rem;color:var(--gray);margin-top:1rem;font-style:italic">* Nourriture extérieure non autorisée dans le parc.</p>
+        <p style="font-size:.72rem;color:var(--gray);margin-top:1rem;font-style:italic">* La nourriture extérieure n'est pas autorisée à l'intérieur du parc.</p>
       </div>
     </div>
   </div>
-  <div class="wave-divider" style="background:linear-gradient(180deg,var(--ocean-deep) 0%,var(--ocean) 100%);margin-top:5rem">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" height="70">
-      <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,70 L0,70 Z" fill="white"/>
+  <div class="wd" style="background:linear-gradient(170deg,var(--ocean-deep),#0044bb);margin-top:5rem">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,25 C360,55 720,0 1080,25 C1260,38 1380,18 1440,25 L1440,60 L0,60 Z" fill="white"/>
     </svg>
   </div>
 </section>
 
-<!-- ══ GALERIE ══ -->
+<!-- ════ GALERIE ════ -->
 <section id="galerie">
-  <div class="sec-inner">
-    <div class="reveal">
-      <div class="sec-label">04 — Galerie</div>
-      <h2 class="sec-title">Le parc en <span style="color:var(--sun)">images</span></h2>
+  <div class="sec">
+    <div class="r">
+      <div class="eyebrow gal-label">04 — Galerie</div>
+      <h2 class="sec-h gal-h">Le parc en <span>images</span></h2>
     </div>
-    <div class="gallery-masonry">
-      <div class="gallery-item reveal reveal-d1">
-        <img src="hero1.jpg" alt="Vue générale Tsunami"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Vue générale</span></div>
+    <div class="gallery">
+      <div class="g-item r r1">
+        <img src="hero1.jpg" alt="Vue générale"/>
+        <div class="g-overlay"><span class="g-cap">Vue générale du parc</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d2">
-        <img src="pool.jpg" alt="Bassins Tsunami"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Les bassins</span></div>
+      <div class="g-item r r2">
+        <img src="pool.jpg" alt="Bassins"/>
+        <div class="g-overlay"><span class="g-cap">Les bassins</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d3">
-        <img src="hero2.jpg" alt="Toboggans Tsunami"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Toboggans</span></div>
+      <div class="g-item r r3">
+        <img src="hero2.jpg" alt="Toboggans"/>
+        <div class="g-overlay"><span class="g-cap">Les toboggans</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d1">
-        <img src="relax.jpg" alt="Espace détente"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Espace détente</span></div>
+      <div class="g-item r r1">
+        <img src="relax.jpg" alt="Détente"/>
+        <div class="g-overlay"><span class="g-cap">Espace détente</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d2">
+      <div class="g-item r r2">
         <img src="pizza.jpg" alt="Restauration"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Restauration</span></div>
+        <div class="g-overlay"><span class="g-cap">Notre restaurant</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d3">
+      <div class="g-item r r3">
         <img src="drinks.jpg" alt="Boissons"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Boissons fraîches</span></div>
+        <div class="g-overlay"><span class="g-cap">Boissons fraîches</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d1">
+      <div class="g-item r r1">
         <img src="snacks.jpg" alt="Snacks"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Snacks</span></div>
+        <div class="g-overlay"><span class="g-cap">Snacks & encas</span></div>
       </div>
-      <div class="gallery-item reveal reveal-d2">
+      <div class="g-item r r2">
         <img src="hero1.jpg" alt="Activités"/>
-        <div class="gallery-item-overlay"><span class="gallery-item-label">Activités</span></div>
+        <div class="g-overlay"><span class="g-cap">Les activités</span></div>
       </div>
     </div>
-    <p style="text-align:center;margin-top:3rem;font-size:.85rem;color:rgba(255,255,255,.55)">Suivez-nous sur Facebook et Instagram pour plus de photos et d'actualités.</p>
+    <p class="gal-social">Suivez <strong>@TsunamiAquaPark</strong> sur Facebook et Instagram pour plus de photos et d'actualités exclusives.</p>
   </div>
 </section>
 
-<!-- ══ ÉVÉNEMENTS ══ -->
+<!-- ════ EVENTS ════ -->
 <section id="events">
-  <div class="sec-inner">
-    <div class="reveal">
-      <div class="sec-label">05 — Événements</div>
-      <h2 class="sec-title" style="color:var(--white)">Organisez votre <span style="color:var(--sun)">événement</span></h2>
-      <p class="sec-sub" style="color:rgba(255,255,255,.55)">Tsunami accueille vos fêtes, sorties scolaires et événements d'entreprise dans un cadre aquatique unique.</p>
+  <div class="sec">
+    <div class="r">
+      <div class="eyebrow ev-label">05 — Événements</div>
+      <h2 class="sec-h ev-h">Organisez votre <span>événement</span></h2>
+      <p class="sec-p ev-p">Tsunami accueille vos anniversaires, sorties scolaires et team buildings dans un cadre aquatique unique au Gabon.</p>
     </div>
-    <div class="events-grid">
-      <div class="event-card reveal reveal-d1">
-        <div class="event-icon" style="background:rgba(255,209,102,.15)">
+    <div class="ev-grid">
+      <div class="ev-card r r1">
+        <div class="ev-icon" style="background:rgba(255,209,102,.12)">
           <svg viewBox="0 0 24 24" style="stroke:var(--sun)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
-        <div class="event-name">Anniversaires</div>
-        <div class="event-desc">Célébrez votre anniversaire dans notre salle décorée avec ballons, gâteau, musique et accès VIP à toutes les attractions.</div>
-        <a href="https://wa.me/241060404010" target="_blank" class="event-cta">
+        <div class="ev-name">Anniversaires</div>
+        <div class="ev-desc">Salle décorée, ballons, musique, gâteau et accès VIP à toutes les attractions pour un anniversaire mémorable.</div>
+        <a href="https://wa.me/241060404010" target="_blank" class="ev-link">
           Organiser mon anniversaire
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
-      <div class="event-card reveal reveal-d2">
-        <div class="event-icon" style="background:rgba(79,195,247,.15)">
+      <div class="ev-card r r2">
+        <div class="ev-icon" style="background:rgba(79,195,247,.12)">
           <svg viewBox="0 0 24 24" style="stroke:var(--sky)"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
         </div>
-        <div class="event-name">Sorties Scolaires</div>
-        <div class="event-desc">Encadrement professionnel, tarifs groupes et programme adapté aux sorties scolaires de toutes les classes.</div>
-        <a href="https://wa.me/241060404010" target="_blank" class="event-cta">
+        <div class="ev-name">Sorties Scolaires</div>
+        <div class="ev-desc">Encadrement professionnel, tarifs groupes attractifs et programme adapté à tous les niveaux scolaires.</div>
+        <a href="https://wa.me/241060404010" target="_blank" class="ev-link">
           Planifier une sortie
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
-      <div class="event-card reveal reveal-d3">
-        <div class="event-icon" style="background:rgba(0,201,167,.15)">
+      <div class="ev-card r r3">
+        <div class="ev-icon" style="background:rgba(0,201,167,.12)">
           <svg viewBox="0 0 24 24" style="stroke:var(--tropical)"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
-        <div class="event-name">Team Building</div>
-        <div class="event-desc">Renforcez la cohésion de vos équipes avec une journée aquatique mémorable — activités, restauration et espace privatisé.</div>
-        <a href="https://wa.me/241060404010" target="_blank" class="event-cta">
+        <div class="ev-name">Team Building</div>
+        <div class="ev-desc">Renforcez la cohésion de vos équipes avec une journée aquatique — activités, restauration et espace privatisé.</div>
+        <a href="https://wa.me/241060404010" target="_blank" class="ev-link">
           Demander un devis
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1040,68 +1164,66 @@ footer{
   </div>
 </section>
 
-<!-- ══ INFOS ══ -->
+<!-- ════ INFOS ════ -->
 <section id="infos">
-  <div class="sec-inner">
-    <div class="reveal" style="text-align:center">
-      <div class="sec-label" style="justify-content:center">06 — Informations</div>
-      <h2 class="sec-title">Infos <span>pratiques</span></h2>
+  <div class="sec">
+    <div class="r" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">06 — Informations</div>
+      <h2 class="sec-h">Infos <span>pratiques</span></h2>
     </div>
     <div class="infos-grid">
-      <div class="info-card reveal reveal-d1">
-        <div class="info-icon" style="background:var(--ocean-deep)">
+      <div class="info-card r r1">
+        <div class="info-icon-wrap" style="background:var(--ocean-deep)">
           <svg viewBox="0 0 24 24" style="stroke:var(--sky)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
-        <div class="info-title">Horaires d'ouverture</div>
-        <div class="info-content">
-          <table class="horaires-table">
+        <div class="info-ttl">Horaires d'ouverture</div>
+        <div class="info-body">
+          <table class="h-table">
             <tr><td><strong>Lundi — Vendredi</strong></td><td>10h00 – 18h30</td></tr>
             <tr><td><strong>Samedi</strong></td><td>09h00 – 19h00</td></tr>
             <tr><td><strong>Dimanche</strong></td><td>09h00 – 19h00</td></tr>
             <tr><td><strong>Jours fériés</strong></td><td>09h00 – 19h00</td></tr>
           </table>
-          <p style="margin-top:.8rem;font-size:.78rem;color:var(--ocean)">Ouvert 7j/7 toute l'année</p>
+          <p style="margin-top:.8rem;color:var(--ocean);font-weight:700;font-size:.8rem">Ouvert 7j/7 toute l'année</p>
         </div>
       </div>
-      <div class="info-card reveal reveal-d2">
-        <div class="info-icon" style="background:var(--tropical)">
+      <div class="info-card r r2">
+        <div class="info-icon-wrap" style="background:var(--tropical)">
           <svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
-        <div class="info-title">Adresse</div>
-        <div class="info-content">
+        <div class="info-ttl">Adresse</div>
+        <div class="info-body">
           <p><strong>Tsunami AquaPark</strong><br/>Avenue Jean Paul II<br/>En face de l'école Martine Oulabou<br/>Libreville, Gabon</p>
           <p style="margin-top:.8rem"><strong>Téléphone :</strong> +241 06 04 04 010</p>
         </div>
       </div>
-      <div class="info-card reveal reveal-d3">
-        <div class="info-icon" style="background:var(--sun-warm)">
+      <div class="info-card r r3">
+        <div class="info-icon-wrap" style="background:var(--sun-warm)">
           <svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="info-title">Règlement intérieur</div>
-        <div class="info-content">
-          <ul class="regles-list">
-            <li>Maillot de bain obligatoire dans les bassins</li>
-            <li>Accompagnateurs requis pour les enfants de moins de 12 ans</li>
-            <li>Nourriture extérieure non autorisée</li>
-            <li>Respect des consignes de sécurité</li>
-            <li>Casques conseillés sur certains toboggans</li>
-            <li>Comportement respectueux envers le personnel</li>
+        <div class="info-ttl">Règlement intérieur</div>
+        <div class="info-body">
+          <ul class="rule-list">
+            <li><span class="rule-dot"></span>Maillot de bain obligatoire dans les bassins</li>
+            <li><span class="rule-dot"></span>Accompagnateurs requis pour les moins de 12 ans</li>
+            <li><span class="rule-dot"></span>Nourriture extérieure non autorisée</li>
+            <li><span class="rule-dot"></span>Respect des consignes de sécurité</li>
+            <li><span class="rule-dot"></span>Comportement respectueux envers le personnel</li>
           </ul>
         </div>
       </div>
-      <div class="info-card reveal reveal-d4">
-        <div class="info-icon" style="background:var(--ocean)">
+      <div class="info-card r r4">
+        <div class="info-icon-wrap" style="background:var(--ocean)">
           <svg viewBox="0 0 24 24" style="stroke:#fff"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <div class="info-title">Bon à savoir</div>
-        <div class="info-content">
-          <ul class="regles-list">
-            <li>Vestiaires et douches disponibles</li>
-            <li>Casiers sécurisés pour vos affaires</li>
-            <li>Parking gratuit sur place</li>
-            <li>Location de bouées disponible</li>
-            <li>Groupes scolaires : tarifs préférentiels</li>
-            <li>Réservations événements sur WhatsApp</li>
+        <div class="info-ttl">Bon à savoir</div>
+        <div class="info-body">
+          <ul class="rule-list">
+            <li><span class="rule-dot"></span>Vestiaires et douches disponibles</li>
+            <li><span class="rule-dot"></span>Casiers sécurisés pour vos affaires</li>
+            <li><span class="rule-dot"></span>Parking gratuit sur place</li>
+            <li><span class="rule-dot"></span>Location de bouées disponible</li>
+            <li><span class="rule-dot"></span>Réservations événements via WhatsApp</li>
           </ul>
         </div>
       </div>
@@ -1109,206 +1231,182 @@ footer{
   </div>
 </section>
 
-<!-- ══ CONTACT ══ -->
+<!-- ════ CONTACT ════ -->
 <section id="contact">
-  <div class="sec-inner">
-    <div class="reveal" style="text-align:center">
-      <div class="sec-label" style="justify-content:center">07 — Contact</div>
-      <h2 class="sec-title">Venez nous <span>rejoindre</span></h2>
-      <p class="sec-sub" style="margin:0 auto">Une question, une réservation ou un événement ? Notre équipe répond rapidement.</p>
+  <div class="sec">
+    <div class="r" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">07 — Contact</div>
+      <h2 class="sec-h">Venez nous <span>rejoindre</span></h2>
+      <p class="sec-p" style="margin:0 auto">Une question, une réservation ou un événement ? On répond vite.</p>
     </div>
     <div class="contact-grid">
-      <div class="reveal">
-        <div class="contact-cards">
-          <a href="tel:+241060404010" class="contact-card">
-            <div class="cc-icon" style="background:var(--ocean)">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.46 2 2 0 0 1 3.59 2.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg>
-            </div>
-            <div><div class="cc-label">Téléphone</div><div class="cc-value">+241 06 04 04 010</div></div>
+      <div class="r">
+        <div class="c-cards">
+          <a href="tel:+241060404010" class="c-card">
+            <div class="c-ic" style="background:var(--ocean)"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.46 2 2 0 0 1 3.59 2.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg></div>
+            <div><div class="c-lbl">Téléphone</div><div class="c-val">+241 06 04 04 010</div></div>
           </a>
-          <a href="https://wa.me/241060404010" target="_blank" class="contact-card">
-            <div class="cc-icon" style="background:#25D366">
-              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            </div>
-            <div><div class="cc-label">WhatsApp</div><div class="cc-value">Envoyer un message</div></div>
+          <a href="https://wa.me/241060404010" target="_blank" class="c-card">
+            <div class="c-ic" style="background:#25D366"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+            <div><div class="c-lbl">WhatsApp</div><div class="c-val">Envoyer un message</div></div>
           </a>
-          <a href="https://www.facebook.com/share/1ASY6KrNWd/?mibextid=wwXIfr" target="_blank" class="contact-card">
-            <div class="cc-icon" style="background:#1877f2">
-              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </div>
-            <div><div class="cc-label">Facebook</div><div class="cc-value">Tsunami AquaPark</div></div>
+          <a href="https://www.facebook.com/share/1ASY6KrNWd/?mibextid=wwXIfr" target="_blank" class="c-card">
+            <div class="c-ic" style="background:#1877f2"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+            <div><div class="c-lbl">Facebook</div><div class="c-val">Tsunami AquaPark</div></div>
           </a>
-          <div class="contact-card" style="cursor:default">
-            <div class="cc-icon" style="background:var(--sun-warm)">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div><div class="cc-label">Horaires</div><div class="cc-value">10h00 – 18h30 · 7j/7</div></div>
+          <div class="c-card" style="cursor:default">
+            <div class="c-ic" style="background:var(--sun-warm)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="c-lbl">Horaires</div><div class="c-val">10h00 – 18h30 · 7j/7</div></div>
           </div>
         </div>
       </div>
-      <div class="contact-map reveal reveal-d2">
+      <div class="c-map r r2">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8095!2d9.4!3d0.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x107f!2zTGlicmV2aWxsZQ!5e0!3m2!1sfr!2sga!4v1"
-          allowfullscreen="" loading="lazy"
-          title="Localisation Tsunami AquaPark">
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.8!2d9.44!3d0.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMC4zOTAwMDAsOS40NDAwMDA!5e0!3m2!1sfr!2sga!4v1"
+          allowfullscreen="" loading="lazy" title="Tsunami AquaPark — Libreville">
         </iframe>
-        <div class="contact-info">
-          <div class="contact-info-title">Tsunami AquaPark</div>
-          <div class="contact-info-addr">Avenue Jean Paul II, en face de l'école Martine Oulabou<br/>Libreville, Gabon</div>
+        <div class="c-addr">
+          <div class="c-addr-name">Tsunami AquaPark</div>
+          <div class="c-addr-txt">Avenue Jean Paul II, en face de l'école Martine Oulabou<br/>Libreville, Gabon</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
+<!-- ════ FOOTER ════ -->
 <footer>
-  <div class="footer-water">
+  <div class="footer-wave" aria-hidden="true">
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="width:100%;height:80px">
-      <path d="M0,40 C360,70 720,10 1080,40 C1260,55 1380,30 1440,40 L1440,80 L0,80 Z" fill="rgba(255,255,255,.05)"/>
+      <path d="M0,40 C360,75 720,5 1080,40 C1260,58 1380,28 1440,40 L1440,80 L0,80 Z" fill="rgba(255,255,255,.07)"/>
     </svg>
   </div>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="logo.jpeg" alt="Tsunami AquaPark"/>
-        <div class="footer-brand-name">TSUNAMI</div>
-        <div class="footer-brand-desc">Le parc aquatique familial de Libreville. Toboggans, bassins, espace enfants et restauration pour des journées inoubliables.</div>
-        <div class="social-row">
-          <a href="https://www.facebook.com/share/1ASY6KrNWd/?mibextid=wwXIfr" target="_blank" class="social-btn">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="https://wa.me/241060404010" target="_blank" class="social-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          </a>
-          <a href="tel:+241060404010" class="social-btn">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.46 2 2 0 0 1 3.59 2.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Navigation</div>
-        <ul class="footer-links">
-          <li><a href="#parc">Le Parc</a></li>
-          <li><a href="#tarifs">Tarifs</a></li>
-          <li><a href="#restauration">Restauration</a></li>
-          <li><a href="#galerie">Galerie</a></li>
-          <li><a href="#events">Événements</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Contact</div>
-        <ul class="footer-links">
-          <li><a href="tel:+241060404010">+241 06 04 04 010</a></li>
-          <li><a href="https://wa.me/241060404010" target="_blank">WhatsApp</a></li>
-          <li><a href="#">Avenue Jean Paul II</a></li>
-          <li><a href="#">Libreville, Gabon</a></li>
-          <li style="margin-top:.5rem;color:rgba(255,255,255,.3);font-size:.75rem">Ouvert 7j/7 · 10h–18h30</li>
-        </ul>
+  <div class="footer-grid">
+    <div>
+      <div class="fb-logo"><img src="logo.jpeg" alt="Tsunami"/></div>
+      <div class="fb-name">TSUNAMI</div>
+      <div class="fb-desc">Le parc aquatique familial de référence à Libreville. Toboggans, bassins, espace enfants et restauration pour des journées inoubliables.</div>
+      <div class="soc-row">
+        <a href="https://www.facebook.com/share/1ASY6KrNWd/?mibextid=wwXIfr" target="_blank" class="soc-btn"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://wa.me/241060404010" target="_blank" class="soc-btn"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="tel:+241060404010" class="soc-btn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.46 2 2 0 0 1 3.59 2.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 17z"/></svg></a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Tsunami AquaPark — Tous droits réservés · Libreville, Gabon</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.2);font-family:var(--font)">Maillot de bain obligatoire</div>
+    <div>
+      <div class="fc-title">Navigation</div>
+      <ul class="fc-links">
+        <li><a href="#parc">Le Parc</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#restauration">Restauration</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#events">Événements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
+    <div>
+      <div class="fc-title">Contact</div>
+      <ul class="fc-links">
+        <li><a href="tel:+241060404010">+241 06 04 04 010</a></li>
+        <li><a href="https://wa.me/241060404010" target="_blank">WhatsApp</a></li>
+        <li><a href="#">Avenue Jean Paul II</a></li>
+        <li><a href="#">Libreville, Gabon</a></li>
+        <li style="margin-top:.6rem;color:rgba(255,255,255,.25);font-size:.72rem">10h00 – 18h30 · Ouvert 7j/7</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Tsunami AquaPark — Tous droits réservés · Libreville, Gabon</div>
+    <div class="footer-tagline">Maillot de bain obligatoire · Respect & Plaisir</div>
   </div>
 </footer>
 
-<!-- WhatsApp Flottant -->
-<a href="https://wa.me/241060404010" class="wa-float" aria-label="Nous contacter via WhatsApp" target="_blank">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- WhatsApp -->
+<a href="https://wa.me/241060404010" class="wa" aria-label="WhatsApp" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-</div><!-- end .page -->
+</div><!-- end #page -->
 
 <script>
 /* ══ PRELOADER ══ */
-window.onload = function(){
-  function getRandomTime(){
-    return localStorage.getItem('preloader') ? 0 : (Math.random()*2+1)*1000;
-  }
-  const time = getRandomTime();
-  function countUp(max,t){
-    var num=0,step=t/max;
-    (function fn(){
-      num++;
-      if(num<=max){
-        const el=document.querySelector('.percent p');
-        if(el)el.innerHTML=num;
-        window.setTimeout(fn,step);
-      }
-    })();
-  }
-  if(time>0)countUp(100,time-500);
-  const line1=document.querySelectorAll('.line-1');
-  const line2=document.querySelectorAll('.line-2');
-  line1.forEach(e=>{e.classList.add('on');e.style.animationDuration=(time/2)+'ms'});
-  line2.forEach(e=>{e.classList.add('on');e.style.animationDuration=(time/2)+'ms'});
-  const pl=document.querySelector('.preloader-layer');
-  if(pl){
-    if(time===0){
-      document.querySelector('.preloader-wrapper').classList.add('hidden');
-      document.querySelector('.page').style.opacity=1;
-    } else {
-      pl.style.animation=`layer ${time/2}ms ease-in ${time/2}ms forwards`;
-      pl.addEventListener('animationend',()=>{
-        document.querySelectorAll('.preloader-inner,.percent').forEach(e=>{
-          e.style.opacity=1;
-          (function fade(){
-            if((e.style.opacity-=.05)<0)e.style.display='none';
-            else requestAnimationFrame(fade);
-          })();
-        });
-        document.querySelector('.preloader-wrapper').classList.add('hidden');
-        document.querySelector('.page').style.opacity=1;
-        localStorage.setItem('preloader',1);
-      },{once:true});
+(function(){
+  const bar=document.getElementById('plBar');
+  const pct=document.getElementById('plPct');
+  const pl=document.getElementById('preloader');
+  const pg=document.getElementById('page');
+  let p=0;
+  const already=localStorage.getItem('ts_loaded');
+  const dur=already?300:2200;
+  const step=dur/100;
+  const iv=setInterval(()=>{
+    p=Math.min(p+1,100);
+    if(bar)bar.style.width=p+'%';
+    if(pct)pct.textContent=p+'%';
+    if(p>=100){
+      clearInterval(iv);
+      setTimeout(()=>{
+        pl.classList.add('done');
+        pg.style.opacity='1';
+        localStorage.setItem('ts_loaded','1');
+      },300);
     }
-  }
-};
+  },step);
+})();
 
-/* ══ NAV scroll ══ */
-window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>80));
+/* ══ NAV ══ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>80),{passive:true});
+function toggleNav(){
+  document.getElementById('mNav').classList.toggle('open');
+  document.getElementById('burger').classList.toggle('active');
+}
+function closeNav(){
+  document.getElementById('mNav').classList.remove('open');
+  document.getElementById('burger').classList.remove('active');
+}
 
-/* ══ Mobile menu ══ */
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
-function closeMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+/* ══ HERO BG ══ */
+const bg=document.getElementById('heroBg');
+bg.style.backgroundImage="url('hero1.jpg')";
+bg.style.backgroundSize='cover';
+bg.style.backgroundPosition='center 30%';
+setTimeout(()=>bg.classList.add('loaded'),200);
+window.addEventListener('scroll',()=>{
+  bg.style.transform=`scale(1.06) translateY(${scrollY*.18}px)`;
+},{passive:true});
 
-/* ══ Reveal on scroll ══ */
-const revealObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(e=>revealObs.observe(e));
-
-/* ══ BUBBLES hero ══ */
-function createBubbles(containerId,count,colors){
-  const c=document.getElementById(containerId);
-  if(!c)return;
-  for(let i=0;i<count;i++){
+/* ══ BUBBLES ══ */
+function spawnBubbles(id,n,pos,palette){
+  const c=document.getElementById(id);if(!c)return;
+  for(let i=0;i<n;i++){
     const b=document.createElement('div');
-    const s=Math.random()*35+6;
+    const s=Math.random()*38+5;
+    const [bg1,bg2,br]=palette;
     b.style.cssText=`
       position:absolute;border-radius:50%;
       width:${s}px;height:${s}px;
       left:${Math.random()*100}%;
-      bottom:${-s}px;
-      background:radial-gradient(circle at 30% 30%,${colors[0]},${colors[1]});
-      border:1px solid ${colors[2]};
-      animation:floatUp ${Math.random()*8+5}s ${Math.random()*8}s linear infinite;
+      bottom:${pos==='fixed'?-s+'px':Math.random()*20+'%'};
+      background:radial-gradient(circle at 32% 28%,${bg1},${bg2});
+      border:1px solid ${br};
+      animation:floatBubble ${Math.random()*9+5}s ${Math.random()*9}s linear infinite;
       pointer-events:none;
     `;
     c.appendChild(b);
   }
 }
-createBubbles('hero-bubbles',35,['rgba(255,255,255,.55)','rgba(255,255,255,.05)','rgba(255,255,255,.2)']);
-createBubbles('bubbles-container',12,['rgba(0,150,255,.25)','rgba(0,100,200,.04)','rgba(0,150,255,.12)']);
+spawnBubbles('hBubbles',40,'hero',['rgba(255,255,255,.55)','rgba(255,255,255,.04)','rgba(255,255,255,.18)']);
+spawnBubbles('bubble-layer',15,'fixed',['rgba(0,150,255,.2)','rgba(0,80,200,.03)','rgba(0,150,255,.1)']);
 
-/* ══ Smooth scroll ══ */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
-  });
-});
+/* ══ REVEAL ══ */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.09});
+document.querySelectorAll('.r').forEach(e=>ro.observe(e));
+
+/* ══ SMOOTH SCROLL ══ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+}));
 </script>
 </body>
 </html>
