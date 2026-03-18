@@ -103,7 +103,7 @@ nav.scrolled{
   box-shadow:0 4px 30px rgba(0,55,120,.3);
 }
 .nav-logo{display:flex;align-items:center;gap:.8rem;text-decoration:none}
-.nav-logo img{width:50px;height:50px;object-fit:cover;border-radius:50%;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.nav-logo img{width:50px;height:50px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
 .nav-logo-text{font-family:var(--display);font-size:1.4rem;color:var(--white);letter-spacing:.08em}
 .nav-logo-sub{font-size:.6rem;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;font-family:var(--font);font-weight:600;margin-top:-.2rem}
 .nav-links{display:flex;gap:1.8rem;align-items:center}
@@ -228,10 +228,7 @@ nav.scrolled{
 
 /* Hero stats */
 .hero-stats{
-  position:absolute;bottom:clamp(80px,12vw,130px);left:50%;transform:translateX(-50%);
-  display:flex;gap:clamp(1.5rem,5vw,3.5rem);z-index:10;
-  animation:fadeUp .8s .5s ease both;
-}
+  position:absolute;bottom:clamp(120px,15vw,160px);left:50%;transform:translateX(-50%);
 .hstat{text-align:center}
 .hstat-num{font-family:var(--display);font-size:2rem;color:var(--white);line-height:1}
 .hstat-num span{color:var(--sun)}
@@ -508,7 +505,7 @@ footer{
 }
 .footer-inner{max-width:1200px;margin:0 auto}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand img{width:54px;height:54px;object-fit:cover;border-radius:50%;margin-bottom:1rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.footer-brand img{width:54px;height:54px;object-fit:contain;margin-bottom:1rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
 .footer-brand-name{font-family:var(--display);font-size:1.4rem;color:var(--white);letter-spacing:.08em;margin-bottom:.4rem}
 .footer-brand-desc{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:1.2rem}
 .social-row{display:flex;gap:.6rem}
@@ -557,9 +554,8 @@ footer{
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
-  .hero-stats{gap:2rem;bottom:clamp(90px,20vh,120px)}
-  .hstat-num{font-size:1.6rem}
-  .hero-btns{gap:1rem;padding:0 1rem}
+  .hero-stats{gap:1.5rem;bottom:100px}
+  .hstat-num{font-size:1.5rem}
   .attractions-grid,.tarifs-grid,.natation-grid,.infos-grid,.events-grid{grid-template-columns:1fr}
   .gallery-masonry{columns:1}
   .resto-img.tall img{height:250px}
@@ -663,119 +659,37 @@ footer{
     </svg>
   </div>
 
- <section class="hero">
-  <div class="hero-container">
-
-    <!-- LEFT -->
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span></span>
-        Parc Aquatique — Libreville, Gabon
-      </div>
-
-      <h1 class="hero-title">
-        TSUNAMI
-        <span class="wave-text">AquaPark</span>
-      </h1>
-
-      <p class="hero-subtitle">L'aventure aquatique commence ici</p>
-
-      <p class="hero-desc">
-        Toboggans géants, bassins, espace enfants, restauration et événements —
-        une journée inoubliable pour toute la famille au cœur de Libreville.
-      </p>
-
-      <div class="hero-btns">
-        <a href="#tarifs" class="btn-sun">
-          Voir les Tarifs
-        </a>
-
-        <a href="#parc" class="btn-wave">
-          Découvrir le parc
-        </a>
-      </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span></span>
+      Parc Aquatique — Libreville, Gabon
     </div>
-
-    <!-- RIGHT -->
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-num">10<span>+</span></div>
-        <div class="hstat-lbl">Toboggans</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">3</div>
-        <div class="hstat-lbl">Bassins</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">7j</div>
-        <div class="hstat-lbl">/ 7 ouvert</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">Tous</div>
-        <div class="hstat-lbl">Âges</div>
-      </div>
+    <h1 class="hero-title">
+      TSUNAMI
+      <span class="wave-text">AquaPark</span>
+    </h1>
+    <p class="hero-subtitle">L'aventure aquatique commence ici</p>
+    <p class="hero-desc">Toboggans géants, bassins, espace enfants, restauration et événements — une journée inoubliable pour toute la famille au cœur de Libreville.</p>
+    <div class="hero-btns">
+      <a href="#tarifs" class="btn-sun">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Voir les Tarifs
+      </a>
+      <a href="#parc" class="btn-wave">
+        Découvrir le parc
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
     </div>
-
   </div>
-</section><section class="hero">
-  <div class="hero-container">
 
-    <!-- LEFT -->
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span></span>
-        Parc Aquatique — Libreville, Gabon
-      </div>
-
-      <h1 class="hero-title">
-        TSUNAMI
-        <span class="wave-text">AquaPark</span>
-      </h1>
-
-      <p class="hero-subtitle">L'aventure aquatique commence ici</p>
-
-      <p class="hero-desc">
-        Toboggans géants, bassins, espace enfants, restauration et événements —
-        une journée inoubliable pour toute la famille au cœur de Libreville.
-      </p>
-
-      <div class="hero-btns">
-        <a href="#tarifs" class="btn-sun">
-          Voir les Tarifs
-        </a>
-
-        <a href="#parc" class="btn-wave">
-          Découvrir le parc
-        </a>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-num">10<span>+</span></div>
-        <div class="hstat-lbl">Toboggans</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">3</div>
-        <div class="hstat-lbl">Bassins</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">7j</div>
-        <div class="hstat-lbl">/ 7 ouvert</div>
-      </div>
-
-      <div class="hstat">
-        <div class="hstat-num">Tous</div>
-        <div class="hstat-lbl">Âges</div>
-      </div>
-    </div>
-
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">10<span>+</span></div><div class="hstat-lbl">Toboggans</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">3</div><div class="hstat-lbl">Bassins</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">7j</div><div class="hstat-lbl">/ 7 ouvert</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">Tous</div><div class="hstat-lbl">Âges</div></div>
   </div>
 </section>
 
