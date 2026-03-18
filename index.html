@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="description" content="Tsunami AquaPark — Le plus grand parc aquatique de Libreville, Gabon. Toboggans, bassins, espace enfants, restauration et événements."/>
 <title>Tsunami AquaPark — Libreville, Gabon</title>
-<link rel="icon" href="logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -169,7 +168,7 @@ nav.scrolled{
 
 .hero-content{
   position:relative;z-index:10;
-  text-align:center;padding:10rem 5% 8rem;max-width:1000px;
+  text-align:center;padding:8rem 5% 6rem;max-width:900px;
 }
 .hero-badge{
   display:inline-flex;align-items:center;gap:.5rem;
@@ -184,11 +183,11 @@ nav.scrolled{
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.8)}}
 .hero-title{
   font-family:var(--display);
-  font-size:clamp(4rem,10vw,9rem);
-  color:var(--white);letter-spacing:.04em;line-height:1;
-  margin-bottom:.8rem;
-  text-shadow:0 6px 50px rgba(0,0,0,.4);
-  animation:fadeUp .8s .1s ease both;
+  font-size:clamp(3.5rem,9vw,8rem);
+  color:var(--white);letter-spacing:.05em;line-height:.95;
+  margin-bottom:.5rem;
+  text-shadow:0 4px 40px rgba(0,0,0,.3);
+  animation:fadeUp .7s .1s ease both;
 }
 .hero-title .wave-text{
   color:var(--sun);
@@ -205,7 +204,7 @@ nav.scrolled{
   animation:fadeUp .7s .3s ease both;
 }
 .hero-btns{
-  display:flex;gap:clamp(1rem,3vw,2rem);justify-content:center;flex-wrap:wrap;max-width:500px;margin:0 auto;
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
   animation:fadeUp .7s .4s ease both;
 }
 .btn-sun{
@@ -228,7 +227,9 @@ nav.scrolled{
 
 /* Hero stats */
 .hero-stats{
-  position:absolute;bottom:clamp(120px,15vw,160px);left:50%;transform:translateX(-50%);
+  display:flex;gap:2.5rem;margin-top:3rem;justify-content:center;
+  animation:fadeUp .7s .5s ease both;
+}
 .hstat{text-align:center}
 .hstat-num{font-family:var(--display);font-size:2rem;color:var(--white);line-height:1}
 .hstat-num span{color:var(--sun)}
@@ -710,7 +711,7 @@ footer{
     </div>
     <div class="attractions-grid">
       <div class="attr-card reveal reveal-d1">
-        <img src="pool.jpg" alt="Bassins et toboggans Tsunami AquaPark" class="attr-img"/>
+        <img src="hero1.jpg" alt="Toboggans géants Tsunami" class="attr-img"/>
         <div class="attr-body">
           <div class="attr-icon" style="background:var(--ocean)">
             <svg viewBox="0 0 24 24"><path d="M22 12s-5 7-10 7-10-7-10-7 5-7 10-7 10 7 10 7z"/></svg>
@@ -752,7 +753,7 @@ footer{
         </div>
       </div>
       <div class="attr-card reveal reveal-d2">
-        <img src="relax.jpg" alt="Salle événements et détente Tsunami" class="attr-img"/>
+        <img src="hero1.jpg" alt="Salle événements" class="attr-img"/>
         <div class="attr-body">
           <div class="attr-icon" style="background:var(--red,#e91e63)">
             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -985,7 +986,7 @@ footer{
         <div class="gallery-item-overlay"><span class="gallery-item-label">Snacks</span></div>
       </div>
       <div class="gallery-item reveal reveal-d2">
-        <img src="snacks.jpg" alt="Activités et restauration Tsunami"/>
+        <img src="hero1.jpg" alt="Activités"/>
         <div class="gallery-item-overlay"><span class="gallery-item-label">Activités</span></div>
       </div>
     </div>
@@ -1208,7 +1209,7 @@ footer{
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2024 Tsunami AquaPark — Tous droits réservés · Libreville, Gabon</div>
+      <div class="footer-copy">© 2026 Tsunami AquaPark — Tous droits réservés · Libreville, Gabon</div>
       <div style="font-size:.7rem;color:rgba(255,255,255,.2);font-family:var(--font)">Maillot de bain obligatoire</div>
     </div>
   </div>
@@ -1223,12 +1224,49 @@ footer{
 
 <script>
 /* ══ PRELOADER ══ */
-document.addEventListener('DOMContentLoaded', function(){
-  // Skip preloader completely for immediate display
-  const preloader = document.querySelector('.preloader-wrapper');
-  if (preloader) preloader.style.display = 'none';
-  document.querySelector('.page').style.opacity = '1';
-});
+window.onload = function(){
+  function getRandomTime(){
+    return localStorage.getItem('preloader') ? 0 : (Math.random()*2+1)*1000;
+  }
+  const time = getRandomTime();
+  function countUp(max,t){
+    var num=0,step=t/max;
+    (function fn(){
+      num++;
+      if(num<=max){
+        const el=document.querySelector('.percent p');
+        if(el)el.innerHTML=num;
+        window.setTimeout(fn,step);
+      }
+    })();
+  }
+  if(time>0)countUp(100,time-500);
+  const line1=document.querySelectorAll('.line-1');
+  const line2=document.querySelectorAll('.line-2');
+  line1.forEach(e=>{e.classList.add('on');e.style.animationDuration=(time/2)+'ms'});
+  line2.forEach(e=>{e.classList.add('on');e.style.animationDuration=(time/2)+'ms'});
+  const pl=document.querySelector('.preloader-layer');
+  if(pl){
+    if(time===0){
+      document.querySelector('.preloader-wrapper').classList.add('hidden');
+      document.querySelector('.page').style.opacity=1;
+    } else {
+      pl.style.animation=`layer ${time/2}ms ease-in ${time/2}ms forwards`;
+      pl.addEventListener('animationend',()=>{
+        document.querySelectorAll('.preloader-inner,.percent').forEach(e=>{
+          e.style.opacity=1;
+          (function fade(){
+            if((e.style.opacity-=.05)<0)e.style.display='none';
+            else requestAnimationFrame(fade);
+          })();
+        });
+        document.querySelector('.preloader-wrapper').classList.add('hidden');
+        document.querySelector('.page').style.opacity=1;
+        localStorage.setItem('preloader',1);
+      },{once:true});
+    }
+  }
+};
 
 /* ══ NAV scroll ══ */
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>80));
